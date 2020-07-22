@@ -1,0 +1,50 @@
+home:
+  help: 'Help'
+  app_support: 'App support'
+  business_apps: 'Business apps'
+  search: 'Search'
+  login: 'Log in'
+  contact_us: 'Contact us'
+  contact_support: 'Contact Support'
+  popular_apps: 'Popular Apps'
+  recommended_solutions: 'Recommended solutions'
+  why_buy_business_apps_from_vodafone: 'Why buy Business Apps from Vodafone'
+  featured_partners: 'Featured partners'
+  terms_and_conditions: 'Terms and Conditions'
+  privacy_policy: 'Privacy Policy'
+  knowledge_base: 'Knowledge base'
+  support_details: 'Support details'
+  support_telephone: 'Support telephone'
+  support_email: 'Support email'
+  general_policy: 'General Policy'
+  view_more: 'View More'
+  all_apps: 'All apps'
+  why_vodafone:
+    section_1: 'Simple – Manage all your Business App licenses from a single location.'
+    section_2: 'App Support – Get the support you need, when you need it, from one point of contact.'
+    section_3: 'Save Time – Easy access to our growing range of recommended Business Apps to help you run, grow and secure your business.'
+  go_to_product: 'Go to product'
+listing:
+  filters: 'Filters'
+  catergories: 'Categories'
+  sort_by: 'Sort by'
+  clear_filters: 'Clear filters'
+  list_view: 'List view'
+  grid_view: 'Grid view'
+  buy_now: 'Buy Now'
+help_menu: '<b>Commercial Support:</b> <br>
+            Mo - Thur I 9 - 17 Hrs <br>
+            Fr I 9 - 16 Hrs <br>
+            email: <a href="mailto: VCHS.Servmgt.DE@vodafone.com">VCHS.Servmgt.DE@vodafone.com</a> <br>
+            Phone: <a href=""tel: 030 83212 1211>030 83212 1211</a> <br>
+            <br>
+            <b>Technical Support:</b> <br>
+            Mo - Fr | 8 - 18 Hrs  <br>
+            email: <a  href="mailto: fu-ict.support@vodafone.com">fu-ict.support@vodafone.com</a> <br>
+            Phone: <a href="tel: 0800 5035 215>0800 5035 215</a>"
+            '
+help_menu_title: 'Need help?'
+searchBar:
+  placeholder: 'Find Applications'
+register_link: 'https://cloud-marketplace.vodafone.de/vap/#/saas-register'
+register_text: 'Register'

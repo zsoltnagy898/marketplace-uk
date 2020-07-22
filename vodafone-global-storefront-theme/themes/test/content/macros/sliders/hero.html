@@ -1,0 +1,34 @@
+{% macro hero(products=[], i18n={}) %}
+<div class="hero">
+    <div class="hero__container">
+        <ul class="hero__carousel-nav">
+            <li class="hero__carousel-nav__prev js-slider-prev">
+                <a class="hero__carousel-nav__prev__link"></a>
+            </li>
+            <li class="hero__carousel-nav__next js-slider-next">
+                <a class="hero__carousel-nav__next__link"></a>
+            </li>
+        </ul>
+        <div class="hero__carousel__container">
+            <div class="slider--items" tabindex="0">
+                {% for product in products %}
+                <div class="hero__item">
+                    <div class="hero__item_card">
+                        <div class="hero__item_image">
+                            <div class="id">
+                                <img aria-label="{{product.name}}" class="id--heroimg js-lazy" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII=" data-src="{{ product.overviewImageUrl }}" >
+                            </div>
+                        </div>
+                        <div class="hero__item_content">
+                            <a class="title__xxlarge" href="{{product.url}}">{{product.name}}</a>
+                            <p data-truncate="paragraph" title="Cognitive Enterprise Mobility Management">{{product.blurb}}</p>
+                            <a href="{{product.url}}" class="button button__emphasis button__large" type="button">{{i18n.learnMore}}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}

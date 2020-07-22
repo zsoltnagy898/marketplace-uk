@@ -1,0 +1,74 @@
+@media only screen and (max-width: 1003px) {
+    .adb-layout-default {
+        width: 100%;
+        max-width:100%;
+    }
+    .ad-component_list--item.user-dropdown {
+        display: none;
+    }
+    .ad-universalnav-icons {
+        display:none;
+    }
+    .ad-component__myapps { 
+        display: block;
+        .ad-universalnav-icons {
+            display:block;
+        }
+    }
+    .unav-icon-mobile { display:block; }
+}
+
+@media only screen and (max-width: 767px) {
+    .adb-layout-default {
+        width: 100%;
+        max-width:100%;
+    }
+    .ad-universalnav-icons {
+        display:none;
+    }
+    .ad-component__cart {
+        .ad-universalnav-icons {
+            display: block;
+        }
+    }
+    .unav-icon-mobile {
+        display:block;
+    }
+    .ad-component_dropdown{
+        &.manage-dropdown, &.user-dropdown {
+            display:none;
+        }
+    }
+    .ad-uniheader__container{
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .ad-uniheader__container--section, .adsearch-universal {
+        flex: 0 0 100%; 
+    }
+ 
+    .adsearch-universal {
+        padding: 10px 0 0 0;
+        border-top: 1px solid $headerNavBorderColor;
+        .appdirectUniversalSearch{
+            padding: 0 15px 0 15px;
+            max-width: 100%;
+        }
+        #adsearch {
+            max-width: 100%!important;
+        }
+    }
+    .ad-uniheader {
+        &--logged-out, &--logged-in {
+            height: 104px;
+        }
+    }
+    .ad-component_dropdown-react .ad-component_list-full {
+        top: 103px;
+    }
+    .ad-uniheader__container--section-right {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}

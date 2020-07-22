@@ -1,0 +1,21 @@
+{% macro editionsSlider() %}
+<script>
+            var $slider = $(".js-edition-box");
+            var $container = $("row js-editions");
+            var $arrowContainer = $container.find(".modal--footer");
+            Slider($slider, $container, $arrowContainer, {
+                dots: true,
+                width: 524,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                variableWidth: false,
+                draggable: false,
+                infinite: true,
+                rows: 0,
+                speed: 600,
+                arrows: false,
+                appendDots: $arrowContainer,
+                responsive: []
+            })
+    </script>
+{% endmacro %}

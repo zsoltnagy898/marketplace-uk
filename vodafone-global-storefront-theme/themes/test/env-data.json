@@ -1,0 +1,36 @@
+{
+  "https://testmarketplace.appdirect.com": [
+    {
+      "name": "hero",
+      "type": "list",
+      "products": "122221,119048,8530,122084,140780"
+    },
+    {
+      "name": "core",
+      "type": "list",
+      "attributes": ""
+    },
+    {
+      "name": "mobile",
+      "type": "list",
+      "attributes": ""
+    }
+  ],
+  "appdirectondemand.com": [
+    {
+      "name": "hero",
+      "type": "list",
+      "products": "168,47,282,649,664"
+    },
+    {
+      "name": "core",
+      "type": "list",
+      "categories": "6"
+    },
+    {
+      "name": "mobile",
+      "type": "list",
+      "categories": "7"
+    }
+  ]
+}

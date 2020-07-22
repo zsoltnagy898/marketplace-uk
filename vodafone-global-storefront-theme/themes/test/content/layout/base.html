@@ -1,0 +1,80 @@
+{% from "/macros/secondary-nav.html" import secondaryNav %}
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {% block meta_title %}<title>{{ meta.title }}</title>{% endblock %}
+  {% block meta_description %}<meta name="description" content="{{ meta.description }}">{% endblock %}
+  {% block meta_keywords %}<meta name="keywords" content="{{ meta.keywords }}">{% endblock %}
+  {% block meta_author %}<meta name="author" content="{{ meta.author }}">{% endblock %}
+  {% block other_meta %}
+
+  {% endblock %}
+
+  {% block meta_opengraph %}
+    <meta property="og:url" content="{{ meta.url }}" />
+    <meta property="og:type" content="{{ meta.type }}" />
+    <meta property="og:title" content="{{ meta.title }}" />
+    <meta property="og:description" content="{{ meta.description }}" />
+    <meta property="og:image" content="{{ meta.image }}" />
+  {% endblock %}
+
+  {% block meta_twitter %}
+    <meta property="twitter:card" content="{{ meta.card }}" />
+    <meta property="twitter:site" content="" />
+    <meta property="twitter:creator" content="" />
+  {% endblock %}
+
+  <script src="//code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossOrigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/2.0.1/jquery.dotdotdot.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+  <script>window.MSInputMethodContext && document.documentMode && document.write('<script src="{{ r("/assets/js/polyfills/ie11CustomProperties.js") }}"><\x2fscript>');</script>
+  <script src="{{ r("/assets/js/polyfills.js") }}"></script>
+  <script src="{{ r("/assets/js/action-api.js") }}"></script>
+  <script src="{{ r("/assets/js/slider.js") }}"></script>
+  <script src="{{ r("/assets/js/slider-mobile.js") }}"></script>
+  <script src="{{ r("/assets/js/simple-slider.js") }}"></script>
+  <script src="{{ r("/assets/js/rating.js") }}"></script>
+  <script src="{{ r("/assets/js/shave.js") }}"></script>
+  <script src="{{ r("/assets/js/form.js") }}"></script>
+  <script src="{{ r("/assets/js/notification.js") }}"></script>
+  <script src="{{ r("/assets/js/listing.js") }}"></script>
+  <script src="{{ r("/assets/js/togglable.js") }}"></script>
+  <script src="{{ r("/assets/js/ui-elements.js") }}"></script>
+  <script src="{{ r("/assets/js/simple-tooltip.js") }}"></script>
+  <script src="{{ r("/assets/js/complex-tooltip.js") }}"></script>
+  <script src="{{ r("/assets/js/common.js") }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ r("/assets/css/theme/theme-index.css") }}">
+  <link rel="shortcut icon" href="{{ r("/assets/images/favicon.ico") }}" type="image/x-icon">
+</head>
+
+<body data-page="{% block dataPage %}{% endblock %}">
+    {% block header %}
+        <div id="header-universal" role="heading" aria-level="1"></div>
+    {% endblock %}
+
+    {% block secondaryNav %}
+        {{ secondaryNav(nav.secondary.items) }}
+    {% endblock %}
+    <div class="main-region page_content page_content__condensed {% block mainRegionClass %}{% endblock %}" role="main">
+        {% block headContent %}{% endblock %}
+        <div class="profile-content">
+            <div class="layout-default">
+                <div class="container">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block footer %}
+        <div id="footer-universal" role="contentinfo"></div>
+    {% endblock %}
+</body>
+</html>

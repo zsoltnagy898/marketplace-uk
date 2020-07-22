@@ -1,0 +1,80 @@
+{% macro productTabs(application) %}
+{% set tabs=[
+{name: 'overview', href: '#Overview', ariaControls: '#devices-features', show: true},
+{name: 'features', href: '#Features', ariaControls: '#devices-specifications', show: application.features.items.length > 0},
+{name: 'editions', href: '#Editions', ariaControls: '#devices-reviews', show: application.editions.items.length > 0},
+{name: 'support', href: '#Policies', ariaControls: '#devices-returns-cancellations', show: true}
+]%}
+
+<div id="tabs-placeholder" style="height: 0"></div>
+<div id="profile-tabs" class="tabs">
+    <div class="tabs__navigation-wrapper">
+        <nav class="js-tabs-navigation tabs__navigation tabs__navigation--fixed" role="tablist">
+            {% for item in tabs %}
+            {% if item.show === true %}
+            <a href="{{item.href}}" class="js-tabs-tab tabs__tab {% if loop.index === 1 %}tabs__tab--active{% endif %}"
+               aria-controls="{{item.ariaControls}}"
+               role="tab" aria-selected="false">
+                {% for navItem in application.navigation.items %}
+                {% if item.name === navItem.value %}
+                {{navItem.label}}
+                {% endif %}
+                {% endfor %}
+            </a>
+            {% endif %}
+            {% endfor %}
+
+        </nav>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var tabsContainer = $('#profile-tabs');
+        var tabsPlaceholder = $('#tabs-placeholder');
+        var header = $('.header .navigation--primary');
+        var tabsTop = tabsContainer.offset().top;
+
+        var handleScroll = function () {
+            var scrollTop = $(window).scrollTop();
+            var sections = $('section[class^=\'section\']');
+
+            $.each(sections, function (index) {
+                var section = $(sections[index]);
+                var sectionTop = section.offset().top;
+
+                if (scrollTop + tabsTop >= sectionTop) {
+                    tabsContainer.find('.js-tabs-tab').removeClass('tabs__tab--active');
+                    tabsContainer.find('.js-tabs-tab[href="#' + section.attr('id') + '"]').addClass('tabs__tab--active');
+                }
+            });
+
+            if (scrollTop >= tabsTop - tabsContainer.outerHeight()) {
+                tabsContainer.addClass('tabs--fixed');
+                tabsPlaceholder.css({height: tabsContainer.outerHeight(true)});
+                header.addClass('borer-bottom-transparent')
+            } else {
+                tabsContainer.removeClass('tabs--fixed');
+                header.removeClass('borer-bottom-transparent');
+                tabsPlaceholder.css({height: 0});
+            }
+
+            if (scrollTop === 0) {
+                tabsTop = tabsContainer.offset().top;
+            }
+        };
+
+        handleScroll();
+
+        window.addEventListener('scroll', handleScroll);
+
+        $('.js-tabs-navigation .js-tabs-tab').on('click', function (e) {
+            e.preventDefault();
+
+            $('html, body').animate({
+                scrollTop: $($(this).attr('href')).offset().top - (tabsContainer.outerHeight() + header.outerHeight())
+            }, 200);
+        });
+    });
+</script>
+{% endmacro %}

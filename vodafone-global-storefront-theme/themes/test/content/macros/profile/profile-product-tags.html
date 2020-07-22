@@ -1,0 +1,85 @@
+{% from "/macros/rating.html" import rating %}
+
+{% macro productSidebarTags(title, details, badges) %}
+<div class="container_header">
+    <h5 class="container_header--title container_header--item">{{ title }}</h5>
+</div>
+<div class="container_content">
+    {% if details.reviews.rating %}
+        <div class="stats">
+            <dl>
+                <dt>{{ details.reviews.title }}</dt>
+                <dd>
+                    {{ rating(details.reviews.rating) }}
+                </dd>
+                <dd class="caption">
+                    {{ details.reviews.caption }}
+                </dd>
+            </dl>
+        </div>
+    {% endif %}
+    {% if details.industries and details.industries.length %}
+        {% for industry in details.industries %}
+            {% if industry.items.length %}
+                <div class="stats">
+                    <dl>
+                        <dt>{{ industry.title }}</dt>
+                        <dd>
+                            {% for entry in industry.items %}
+                                <div><a href="{{ entry.href }}">{{ entry.label }}</a></div>
+                            {% endfor %}
+                        </dd>
+                    </dl>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% for tags in details.tags %}
+        {% if tags.items.length %}
+        <div class="stats">
+            <dl>
+                <dt>{{ tags.title }}</dt>
+                <dd>
+                    {% for tag in tags.items %}
+                        <div><a href="{{ tag.href }}">{{ tag.label }}</a></div>
+                    {% endfor %}
+                </dd>
+            </dl>
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% if details.productType and details.productType.items.length %}
+        <div class="stats">
+            <dl>
+                <dt>{{ details.productType.title }}</dt>
+                <dd>
+                    {% for type in details.productType.items %}
+                        <div><a href="{{ type.href }}">{{ type.label }}</a></div>
+                    {% endfor %}
+                </dd>
+            </dl>
+        </div>
+    {% endif %}
+    {% if details.vendor and details.vendor.items.length %}
+        <div class="stats">
+            <dl>
+                <dt>{{ details.vendor.title }}</dt>
+                <dd>
+                    {% for vendor in details.vendor.items %}
+                        <div><a href="{{ vendor.href }}">{{ vendor.label }}</a></div>
+                    {% endfor %}
+                </dd>
+            </dl>
+        </div>
+    {% endif %}
+    {% if badges %}
+        <div class="merchandising-badges">
+            {% for badge in badges %}
+                <div class="merchandising-badges-item">
+                    <img src="{{ badge.image }}" alt="{{ badge.name }}" />
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endmacro %}

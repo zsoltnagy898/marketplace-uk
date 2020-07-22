@@ -1,0 +1,50 @@
+home:
+  help: 'Hilfe'
+  app_support: 'Support'
+  business_apps: 'Business Apps'
+  search: 'Suche'
+  login: 'Anmelden'
+  contact_us: 'Kontakt'
+  contact_support: 'Support kontaktieren'
+  popular_apps: 'Beliebte Apps'
+  recommended_solutions: 'Empfohlene Apps'
+  why_buy_business_apps_from_vodafone: 'Warum Vodafone der ideale Partner für Sie ist'
+  featured_partners: 'Unsere Partner'
+  terms_and_conditions: 'allgemeine Geschäftsbedingungen (AGB)'
+  privacy_policy: 'Datenschutsbestimmungen'
+  knowledge_base: 'Hilfeseiten'
+  support_details: 'Support Details'
+  support_telephone: 'Support Telefon'
+  support_email: 'Support E-Mail'
+  general_policy: 'General Policy'
+  view_more: 'Erfahren Sie mehr'
+  all_apps: 'All apps'
+  why_vodafone:
+    section_1: 'Einfach - verwalten Sie alle Business-Apps gebündelt an einem Ort'
+    section_2: 'Ein Ansprechpartner - mit uns bekommen Sie den Support den Sie benötigen, wenn Sie ihn benötigen!'
+    section_3: 'Sparen Sie Zeit - mit unseren passenden Business Apps zu mehr Produktivität, Wachstum & Sicherheit!'
+  go_to_product: 'Zum Produkt'
+listing:
+  filters: 'Filtern'
+  catergories: 'Kategorien'
+  sort_by: 'Sortieren nach'
+  clear_filters: 'Filter löschen'
+  list_view: 'Listenansicht'
+  grid_view: 'Gitterdarstellung'
+  buy_now: 'Jetzt kaufen'
+help_menu: '<b>Kaufmännischer Support:</b> <br>
+            Mo - Do I 9 - 17 Uhr <br>
+            Fr I 9 - 16 Uhr <br>
+            E-Mail: <a href="mailto: VCHS.Servmgt.DE@vodafone.com">VCHS.Servmgt.DE@vodafone.com</a> <br>
+            Telefon: <a href=""tel: 030 83212 1211>030 83212 1211</a> <br>
+            <br>
+            <b>Technischer Support:</b> <br>
+            Mo - Fr | 8 - 18 Uhr <br>
+            E-Mail: <a  href="mailto: fu-ict.support@vodafone.com">fu-ict.support@vodafone.com</a> <br>
+            Telefon: <a href="tel: 0800 5035 215">0800 5035 215>0800 5035 215</a>
+            '
+help_menu_title: 'Haben Sie Fragen?'
+searchBar:
+  placeholder: 'Suche'
+register_link: 'https://cloud-marketplace.vodafone.de/vap/#/saas-register'
+register_text: 'Registrieren'

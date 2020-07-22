@@ -1,0 +1,43 @@
+home:
+  help: 'Βοήθεια'
+  app_support: 'Υποστήριξη'
+  business_apps: 'Εταιρικές Λύσεις'
+  search: 'Αναζήτηση'
+  login: 'Σύνδεση'
+  contact_us: 'Επικοινωνία'
+  contact_support: 'Support kontaktieren'
+  popular_apps: 'Δημοφιλείς Λύσεις'
+  recommended_solutions: 'Προτεινόμενες Λύσεις'
+  why_buy_business_apps_from_vodafone: 'Γιατί να αγοράσετε εταιρικές λύσεις από την Vodafone'
+  featured_partners: 'Επιλεγμένοι Συνεργάτες'
+  terms_and_conditions: 'Όροι και Προϋποθέσεις'
+  privacy_policy: 'Πολιτική ιδιωτικότητας - Cookies'
+  knowledge_base: 'Περισσότερες Πληροφορίες'
+  support_details: 'Στοιχεία Επικοινωνίας'
+  support_telephone: 'Τηλέφωνο Επικοινωνίας'
+  support_email: 'email Επικοινώνιας'
+  general_policy: 'Πολιτική'
+  view_more: 'Περισσότερα'
+  all_apps: 'All apps'
+  why_vodafone:
+    section_1: 'Ευκολία –  Διαχειρίσου όλες τις Vodafone Business λύσεις σου από ένα μόνο σημείο'
+    section_2: 'Υποστήριξη- Όλη η υποστήριξη που χρειάζεσαι, την στιγμή που την χρειάζεσαι, σε ένα σημείο'
+    section_3: 'Κάλεσε στον αριθμό 1399 από κινητό ή σταθερό τηλέφωνο Vodafone χωρίς χρέωση ή στο 800 11 127 127, από σταθερό τηλέφωνο άλλου δικτύου. Εάν βρίσκεσαι στο εξωτερικό, κάλεσε στο +306944401399. (η κλήση χρεώνεται ως εξερχόμενη προς Ελλάδα).'
+  go_to_product: 'Μετάβαση στο Προϊόν'
+listing:
+  filters: 'Φίλτρα'
+  catergories: 'Κατηγορίες'
+  sort_by: 'Ταξινόμηση'
+  clear_filters: 'Καθαρισμός φίλτρων'
+  list_view: 'Προβολή σε λίστα'
+  grid_view: 'Προβολή σε πλέγμα'
+  buy_now: 'Αγορά'
+help_menu: 'Κάλεσε χωρίς χρέωση στον αριθμό 1399 από κινητό ή σταθερό τηλέφωνο Vodafone ή στο 800 11 127 127 από σταθερό τηλέφωνο άλλου δικτύου. <br><br>
+           Εάν βρίσκεσαι στο εξωτερικό, κάλεσε στο +30 694 4401399. (H κλήση χρεώνεται ως εξερχόμενη προς Ελλάδα) <br><br>
+
+            '
+help_menu_title: 'Χρειάζεσαι βοήθεια?'
+searchBar:
+  placeholder: 'Εύρεση Λύσεων'
+register_link: 'https://cloud-marketplace.vodafone.de/vap/#/saas-register'
+register_text: 'Registrieren'

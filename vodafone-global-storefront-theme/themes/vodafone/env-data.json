@@ -1,0 +1,46 @@
+{
+  "https://testvfgreece.appdirect.com": [
+    {
+      "name": "recommendedSolutions",
+      "type": "list",
+      "categories": "42360"
+    },
+    {
+      "name": "carousel",
+      "type": "list",
+      "categories": "42357"
+    },
+    {
+      "name": "popularapps",
+      "type": "list",
+      "categories": "42152"
+    },
+    {
+      "name": "collaboration",
+      "type": "list",
+      "categories": "42161"
+    }
+  ],
+  "https://marketplace.vodafone.gr": [
+    {
+      "name": "recommendedSolutions",
+      "type": "list",
+      "categories": "1750"
+    },
+    {
+      "name": "carousel",
+      "type": "list",
+      "subcategories": "1747"
+    },
+    {
+      "name": "popularApps",
+      "type": "list",
+      "categories": "1645"
+    },
+    {
+      "name": "collaboration",
+      "type": "list",
+      "categories": "42161"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+.browse-page {
+    .compare-label {
+        display: none!important;
+    }
+    @include media-breakpoint-down(md) {
+        .listing-items-row { 
+            display: block!important;
+        }
+        .listing-items-grid {
+            display: none!important;
+        }
+    }
+    @include media-breakpoint-up(sm) {
+        .listing-items {
+            display: block!important;
+        }
+    }
+}

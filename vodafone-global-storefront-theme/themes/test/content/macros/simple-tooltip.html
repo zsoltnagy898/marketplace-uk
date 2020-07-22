@@ -1,0 +1,3 @@
+{% macro simpleTooltip(content, position) %}
+    <span class="tooltip__text tooltip__text{% if position %} tooltip__text--{{position}}{% endif %} js-simple-tooltip is-hidden">{{ content }}</span>
+{% endmacro %}

@@ -1,0 +1,15 @@
+{% macro productSelectButton(actionData, labelData, options, isConfigure) %}
+    <a 
+        class=" button
+        {{ 'js-select-edition' if isConfigure}}
+        {{ 'toggle-select' if isConfigure}}
+        {{ 'button__full_width' if options.isFullWidth}}
+        {{ 'is-disabled' if actionData.enabled}} 
+        button__primary
+        button__profile" 
+        aria-label="{{ labelData.select }}"
+    >
+        <span class="edition-select">{{ labelData.select }}</span>
+        <span class="edition-selected">{{ labelData.selected }}</span>
+    </a>
+{% endmacro %}

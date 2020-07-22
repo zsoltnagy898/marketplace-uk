@@ -1,0 +1,49 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="{{ r("/assets/css/theme/theme-index.css") }}">
+    <style>
+        body, html {
+            height: 100%;
+        }
+        h1 {
+            font-size: 6em
+        }
+        .container {
+            width: 610px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+    <div class="main-region container">
+		<div>
+			<div>
+				<h1>{{ statusCode | default('404') }}</h1>
+				<h2>Sorry, we couldn't find it.</h2>
+				<p class="text-center">Page Not Found ({{ statusCode | default('404') }})</p>
+			</div>
+            <hr/>
+			<div>
+				<p>Apologies, but the page you are looking for could not be found. It may have moved or the url might be misspelled.</p>
+				<p><strong>Where would you like to go from here?</strong></p>
+				<menu class="toggle_buttons">
+					<button class="button" onclick="window.history.back();return false">
+						<span>Go to Previous Page</span>
+					</button>
+                    <button class="button" onclick="var win = this.ownerDocument.defaultView || this.ownerDocument.parentWindow; if (win == window) { window.location.href='../'; } ;return false">
+						<span>AppDirect Home</span>
+					</button>
+					<button class="button" onclick="window.location.href='http://support.appdirect.com';return false;">
+						<span>Contact Support</span>
+					</button>
+				</menu>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

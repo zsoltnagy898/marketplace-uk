@@ -1,0 +1,87 @@
+{% extends "/layout/base.html" %}
+{% from "/macros/profile/profile-product-heading.html" import productHeadCard %}
+{% from "/macros/profile/profile-product-pricing.html" import productSidebarPricing %}
+{% from "/macros/profile/profile-product-tags.html" import productSidebarTags %}
+{% from "/macros/profile/profile-product-section.html" import productSidebarSection %}
+{% from "/macros/profile/profile-product-sidebar-top.html" import productSidebarTopSection %}
+{% from "/macros/profile/profile-screenshot.html" import productScreenshotModal %}
+{% from "/macros/profile/profile-lead-form.html" import LeadModal %}
+{% from "/macros/profile/profile-upgrade.html" import UpgradeModal %}
+{% from "/macros/sliders/slider.html" import slider %}
+{% from "/macros/sliders/script.html" import sliderScript %}
+{% from "/macros/notification.html" import notificationModel %}
+
+{% block dataPage %}profile{% endblock %}
+{% block mainRegionClass %}profile-region{% endblock %}
+
+{% block headContent %}
+    <div class="js-notification-lead notification-center"></div>
+    {{ productHeadCard(application) }}
+{% endblock %}
+
+{% block content %}
+    {% block profileContent %}
+        <div class="row layout-content__section">
+            <div class="col-xs-8 col-fix-inv-sm-4">
+                {% block contentSection %}{% endblock %}
+            </div>
+            <div class="col-xs-8 col-fix-sm-4">
+                {{ productSidebarTopSection(application.screenshots, application.overview, i18n) }}
+
+                <div class="container-box">
+                    {{ productSidebarTags(
+                        application.relatedContent.i18n.details,
+                        application.relatedContent.details,
+                        application.summary.merchandisingBadges
+                    ) }}
+                    {% if not application.config.hidePricings %}
+                        {{ productSidebarPricing(application.relatedContent.pricing.editions, i18n) }}
+                    {% endif %}
+                </div>
+                {{ productSidebarSection(application.relatedContent.related, application.relatedContent.i18n.related) }}
+                {{ productSidebarSection(application.relatedContent.resellers, application.relatedContent.i18n.resellers) }}
+            </div>
+        </div>
+    {% endblock %}
+
+    {% if application.recommendations.items.length %}
+        <div class="layout-content--lined">
+            {{ slider("Similar Apps", application.recommendations.items, i18n, false) }}
+        </div>
+    {% endif %}
+
+    <script>
+        $(".featuresDesc span").shave(40);
+        $(".profile_header").fixedHeader({ container: ".profile-region" });
+        $(".container-box-section").simpleSlider();
+    </script>
+
+    {{ sliderScript() }}
+    {{ productScreenshotModal(application.screenshots) }}
+    {{ LeadModal(application.leads) }}
+    {{ UpgradeModal(application.upgrades, application.summary.title) }}
+    {{ notificationModel() }}
+
+
+    <script src="{{ r('/assets/js/profile-leads.js') }}"></script>
+    <script>
+        $(".js-profile-lead")
+            .profileLeads({
+                    endpoint: {{ application.leads.form.actionEndpoint | dump | safe }},
+                    otherData: {{ application.leads.form.otherData | dump | safe }},
+                    customFields: {{ application.leads.form.schema.custom | dump | safe }},
+                    i18n: {{ application.leads.i18n | dump | safe }}
+                }
+            );
+
+        $(".js-profile-upgrade-popup").on("click", function(e) {
+            e.preventDefault();
+            $("body > .profile-upgrade-modal").remove();
+            // upgrade popup is tied to it's button
+            $(this).closest(".profile-actions").find(".profile-upgrade-modal").clone().modal({
+                fadeDuration: 100
+            });
+        })
+    </script>
+     <script src="{{ r('/assets/js/profile-addtocart.js') }}"></script>
+{% endblock %}

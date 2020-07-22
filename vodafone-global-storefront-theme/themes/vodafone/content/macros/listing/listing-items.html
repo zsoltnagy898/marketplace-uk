@@ -1,0 +1,55 @@
+{% from "/macros/listing/listing-items-grid.html" import listingItemsGrid with context %}
+{% from "/macros/listing/listing-items-row.html" import listingItemsRow with context %}
+{% from "/macros/simple-tooltip.html" import simpleTooltip %}
+
+{% macro listingItems(listing, selectedFilters, showUtils = true) %}
+<section class="container-box">
+    <div class="grid-container table">
+        {{ listingItemsGrid(listing) }}
+        {{ listingItemsRow(listing) }}
+    </div>
+    <div class="container_footer">
+        <nav class="pagination position-relative d-flex align-items-center justify-content-center">
+            {% for item in listing.pagination.pagesList %}
+            {% if(item.type == "previous") %}
+            <a href="{{ item.url }}"
+               class="pagination--button-prev {% if item.status === 'disabled' %}is-disabled{% endif %} body-text">
+                <svg focusable="false" aria-hidden="true"
+                     class="icon  icon--small  chevron__icon accordion__chevron navigation__chevron svg-icon">
+                    <use xlink:href="#icon-chevron-left"/>
+                </svg>
+            </a>
+            {% endif %}
+            {% if(item.type == "next") %}
+            <a href="{{ item.url }}"
+               class="pagination--button-next {% if item.status === 'disabled' %}is-disabled{% endif %} body-text">
+                <svg focusable="false" aria-hidden="true"
+                     class="icon  icon--small  chevron__icon accordion__chevron navigation__chevron svg-icon">
+                    <use xlink:href="#icon-chevron-right"/>
+                </svg>
+            </a>
+            {% endif %}
+            {% if(item.type == "ellipsis") %}
+            <span class="pagination--ellipsis body-text">
+                ...
+            </span>
+            {% endif %}
+            {% if(item.type == "page") %}
+            <a href="{{ item.url }}"
+               class="pagination--button {% if item.status === 'selected' %}active{% endif %} body-text">{{ item.nb
+                }}</a>
+            {% endif %}
+            {% endfor %}
+        </nav>
+    </div>
+</section>
+<script>
+    $(".listing-description").dotdotdot({
+        truncate: "node",
+        after: ".more"
+    });
+    $(".tile__content--description").dotdotdot({
+        truncate: "node"
+    });
+</script>
+{% endmacro %}

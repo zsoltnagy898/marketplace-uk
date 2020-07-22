@@ -1,0 +1,219 @@
+{% from "/macros/help-menu.html" import helpMenu with context %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block meta_title %}<title>{{ meta.title }}</title>{% endblock %}
+    {% block meta_description %}
+    <meta name="description" content="{{ meta.description }}">
+    {% endblock %}
+    {% block meta_keywords %}
+    <meta name="keywords" content="{{ meta.keywords }}">
+    {% endblock %}
+    {% block meta_author %}
+    <meta name="author" content="{{ meta.author }}">
+    {% endblock %}
+    {% block other_meta %}
+    {% endblock %}
+    <link rel="icon" type="image/png" href="{{ r('/assets/ws2/favicon.png') }}">
+
+    {% block meta_opengraph %}
+    <meta property="og:url" content="{{ meta.url }}">
+    <meta property="og:type" content="{{ meta.type }}">
+    <meta property="og:title" content="{{ meta.title }}">
+    <meta property="og:description" content="{{ meta.description }}">
+    <meta property="og:image" content="{{ meta.image }}">
+    {% endblock %}
+
+    {% block meta_twitter %}
+    <meta property="twitter:card" content="{{ meta.card }}">
+    <meta property="twitter:site" content="">
+    <meta property="twitter:creator" content="">
+    {% endblock %}
+
+    {# Tealium sync #}
+    <script src="//tags.tiqcdn.com/utag/vodafone/uk-main/prod/utag.sync.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/2.0.1/jquery.dotdotdot.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css">
+
+    {# WS2 styles #}
+    <link rel="stylesheet" href="{{ r('/assets/css/custom/main.min.css') }}">
+    <link rel="stylesheet" href="{{ r('/assets/css/custom/main.nomobile.css') }}">
+
+    {# Theme styles #}
+    <link rel="stylesheet" href="{{ r('/assets/css/theme/theme-index.css') }}">
+
+    <link rel="stylesheet" href="{{ r('/assets/css/custom/cyber-configurator.css') }}">
+</head>
+
+<body>
+
+{% include "/includes/ws2/group/sprite.svg" %}
+{% include "/includes/icons.svg" %}
+
+<!--        {% block cookie %}-->
+<!--            {% include "/includes/cookie-consent.html" %}-->
+<!--        {% endblock %}-->
+
+{% block header %}
+<div id="header-universal" role="heading" aria-level="1"></div>
+{% endblock %}
+
+{% block thirdHeader %}
+{% include "/includes/third-header.html" %}
+{% endblock %}
+
+<div class="main-region page_content page_content__condensed {% block mainRegionClass %}{% endblock %}">
+
+    {% block headContent %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+{% block footer %}
+<div id="footer-universal" role="contentinfo"></div>
+{% endblock %}
+
+{{ helpMenu() }}
+
+{% block scripts_ws2 %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"
+        integrity="sha256-kjBnXrBNDceEMg278ZjsCUEJ8VrWP2Tp158N9u7Yhdk=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.contentWindow.min.js"
+        integrity="sha256-VpX4MX88gncsR5P7kUXUXNVsxD15snc3o3470DCrO6o=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/2.0.0/lazysizes.min.js"
+        integrity="sha256-VH4Nym1OmqR3ZkiyNC0a8JbhuoJFIBRmncEhMgOjWcs=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.5/plugins/bgset/ls.bgset.min.js"
+        integrity="sha256-pfZ5iIOdSgje8u0J8tn5oP0bNhyKT/XHKFonHTAZ5kU=" crossorigin="anonymous"></script>
+<script type="text/javascript" language="javascript" charset="utf-8"
+        src="https://vodafoneuk.digital.nuance.com/chatskins/launch/inqChatLaunch10006330.js"></script>
+
+{% endblock %}
+
+{% block page_scripts %}
+{% endblock %}
+
+{% block analytics_data %}
+{% endblock %}
+
+{# Tealium universal tag loader #}
+<script>
+    (function (a, b, c, d) {
+        a = '//tags.tiqcdn.com/utag/vodafone/uk-main/prod/utag.js';
+        b = document;
+        c = 'script';
+        d = b.createElement(c);
+        d.src = a;
+        d.type = 'text/java' + c;
+        d.async = true;
+        a = b.getElementsByTagName(c)[0];
+        a.parentNode.insertBefore(d, a);
+    })();
+</script>
+
+<script>
+
+    function setFixedHeader(scrollY) {
+        var $ = $ || jQuery;
+        if (scrollY > 0) {
+            var interval = setInterval(function () {
+                var headerElement = $('#fixed-header');
+                if (headerElement && headerElement.length) {
+                    headerElement.addClass('navigation--fixed');
+                    clearInterval(interval);
+                }
+            }, 100);
+        }
+    }
+
+    window.onload = function () {
+        if (typeof window.scrollY === "undefined") {
+            setTimeout(function () {
+                setFixedHeader(window.pageYOffset);
+            }, 1000);
+        } else {
+            setFixedHeader(window.scrollY);
+        }
+    }
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function setCookie(c_name, value, exdays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+        document.cookie = c_name + "=" + c_value + "; " + "path=/";
+    }
+
+    function getCookie(c_name) {
+        var i, x, y, ARRcookies = document.cookie.split(";");
+        for (i = 0; i < ARRcookies.length; i++) {
+            x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+            y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+            x = x.replace(/^\s+|\s+$/g, "");
+            if (x == c_name) {
+                return unescape(y);
+            }
+        }
+    }
+
+    var waitForButton;
+    var buttonInterval;
+    var cookieWrapper;
+
+    function getAcceptCookiesButton() {
+        waitForButton = $('.accept-cookies-button');
+        cookieWrapper = $('.optanon-alert-box-wrapper');
+        var value = readCookie('acceptedCookies');
+        // cookieWrapper.hide();
+        if (!waitForButton.length) {
+            buttonInterval = setTimeout(getAcceptCookiesButton, 200);
+        } else {
+
+            if (value !== null) {
+                cookieWrapper.hide();
+            }
+            clearTimeout(buttonInterval);
+            waitForButton[0].onclick = function () {
+                // alert('hello');
+                // document.cookie = "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+                setCookie('acceptedCookies', true, 14)
+            }
+        }
+    }
+
+    getAcceptCookiesButton();
+
+</script>
+
+{% include "/includes/livechat.html" %}
+
+</body>
+</html>

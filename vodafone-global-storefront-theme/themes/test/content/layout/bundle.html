@@ -1,0 +1,28 @@
+{% extends "/layout/base.html" %}
+{% from "/macros/bundle/profile-bundle-heading.html" import bundleHeadCard %}
+
+{% block dataPage %}profile{% endblock %}
+{% block mainRegionClass %}profile-region{% endblock %}
+
+{% block headContent %}
+    {{ bundleHeadCard(bundle.summary, bundle.badges, bundle.ribbon, bundle.navigation, bundle.callToActions) }}
+{% endblock %}
+
+{% block content %}
+    {% block profileContent %}{% endblock %}
+
+    <script src="{{ r('/assets/js/profile-leads.js') }}"></script>
+    <script>
+        $(".profile_header").fixedHeader({ container: ".profile-region" });
+    </script>
+    <script>
+        $(".js-profile-upgrade-popup").on("click", function(e) {
+            e.preventDefault();
+            $("body > .profile-upgrade-modal").remove();
+            // upgrade popup is tied to it's button
+            $(this).closest(".profile-actions").find(".profile-upgrade-modal").clone().modal({
+                fadeDuration: 100
+            });
+        })
+    </script>
+{% endblock %}

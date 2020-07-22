@@ -1,0 +1,255 @@
+@import "./variables";
+
+.carousel {
+  height: 370px;
+  overflow: hidden;
+
+  @include media-breakpoint-down(md) {
+    height: 528px;
+
+    &.high-height-image {
+      padding: 0 !important;
+    }
+  }
+
+  @include media-breakpoint-down(xs) {
+    &.high-height-image {
+      height: 350px !important;
+    }
+  }
+
+  &.high-height-image {
+    padding: 0 80px;
+  }
+
+  &.high-height, &.high-height-image {
+    height: 450px;
+  }
+
+  &.low-height {
+    height: 170px;
+  }
+
+  .carousel-indicator-item {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: $color-white;
+    box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+
+    &.active {
+      background-color: $color-red;
+    }
+  }
+
+  .carousel-control-icon-container {
+    @extend .arrow-button;
+  }
+
+  .carousel-title {
+    font-family: VodafoneLight;
+    color: $color-grey;
+  }
+
+  .carousel-item {
+    padding: 0 90px;
+
+    @include media-breakpoint-down(md) {
+      padding: 0 !important;
+    }
+
+    &.low-padding {
+      padding: 0 40px;
+    }
+
+    .carousel-item-description {
+      @extend .hide-text-overflow;
+      color: $color-grey;
+      font-family: VodafoneRegular;
+      max-height: 65px;
+    }
+
+    .carousel-item-title, .carousel-item-overview {
+      @extend .hide-text-overflow;
+      max-height: 70px;
+    }
+
+    .hero-carousel-item {
+      height: 315px;
+
+      @include media-breakpoint-down(md) {
+        height: unset;
+      }
+
+      .carousel-item-title {
+        font-family: VodafoneRegularBold;
+        margin-bottom: 8px;
+      }
+
+      .carousel-item-overview {
+        font-family: VodafoneRegular;
+        margin-bottom: 8px;
+        font-size: 36px;
+      }
+
+      .carousel-item-title {
+        color: $color-red;
+        max-height: 45px;
+      }
+
+      .carousel-item-overview {
+        color: $color-red;
+        max-height: 91px;
+      }
+
+      .carousel-item-description {
+        margin-bottom: 25px;
+        max-height: 70px;
+      }
+    }
+
+    .list-carousel-item {
+      background: $color-light-grey;
+      box-shadow: 0 2px 8px 0 rgba($color-black, 0.15);
+      border-radius: 6px;
+      padding: 15px;
+      height: 100%;
+      min-height: 250px;
+      position: relative;
+
+      .title-container {
+        margin: 22px 0 27px 0;
+      }
+
+      img {
+        max-width: 70px;
+        max-height: 70px;
+      }
+
+      .carousel-item-title {
+        font-family: VodafoneRegular;
+        color: $color-grey;
+      }
+
+      .carousel-item-description {
+        margin-bottom: 36px;
+      }
+    }
+
+    .profile-carousel-item {
+      .image-container {
+        margin: 28px 0;
+        height: 224px;
+
+        img {
+          max-height: 100%;
+        }
+      }
+
+      .carousel-item-description {
+        padding: 0 150px;
+      }
+
+      @include media-breakpoint-down(xs) {
+        .image-container {
+          height: 124px;
+        }
+      }
+
+      @include media-breakpoint-down(sm) {
+        .carousel-item-description {
+          padding: 0 15px;
+        }
+      }
+
+      @include media-breakpoint-between(sm, lg) {
+        .carousel-item-description {
+          padding: 0 110px;
+        }
+      }
+    }
+
+    .more-text-container {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+
+    .logo-carousel-item {
+      width: 100%;
+      max-width: 260px;
+      padding: 15px;
+      height: 120px;
+
+      @include media-breakpoint-down(md) {
+        padding: 7px;
+      }
+    }
+  }
+
+  .mobile-carousel-list {
+    .carousel-item-next:not(.carousel-item-left),
+    .active.carousel-item-right {
+      .list-carousel-item {
+        &:last-child {
+          visibility: hidden;
+        }
+      }
+    }
+
+    .carousel-item-prev:not(.carousel-item-right),
+    .active.carousel-item-left {
+      .list-carousel-item {
+        &:last-child {
+          visibility: hidden;
+        }
+      }
+    }
+
+    .carousel-item.active {
+      display: flex;
+
+      .list-carousel-item {
+        width: 90%;
+        visibility: visible;
+
+        &:last-child {
+          display: block !important;
+          position: absolute;
+          overflow: hidden;
+          left: 95%;
+        }
+      }
+    }
+  }
+
+  .carousel-control-prev, .carousel-control-next {
+    width: 90px;
+    opacity: 0.62;
+  }
+
+  .carousel-control-prev, .carousel-control-next {
+    background-image: linear-gradient(90deg, $color-white 80%, rgba($color-white, 0) 100%);
+  }
+
+  .carousel-control-next {
+    transform: rotate(-180deg);
+  }
+
+  &.wider-controls {
+    .carousel-control-prev, .carousel-control-next {
+      width: 165px;
+      padding-right: 75px;
+    }
+  }
+
+  &.grey-bg {
+    .carousel-control-prev, .carousel-control-next {
+      opacity: 0.95;
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+      background-image: linear-gradient(90deg, $color-light-grey 80%, rgba($color-light-grey, 0) 100%);
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{% macro profileLimits(unit) %}
+    {% if unit and unit.limitLabel %}
+        <div class="edition__limits">{{ unit.limitLabel }}</div>
+    {% endif %}
+{% endmacro %}
+
+{% macro profileFormattedPrice(formattedPrice, isFirst = false) %}
+    <span class="{{ 'edition__price--primary-amount' if isFirst else 'edition__price-amount' }}">{{ formattedPrice[0] }}</span>
+    {{ profileFormattedPeriod(formattedPrice) }}
+{% endmacro %}
+
+{% macro profileFormattedPeriod(formattedPrice) %}
+    {% if formattedPrice[1] %} {# unit #}
+        <span class="edition__price-unit">{{ formattedPrice[1] | lower }}</span>
+    {% endif %}
+    {% if formattedPrice[2] %} {# frequency #}
+        <span class="edition__price-frequency">{{ formattedPrice[2] | lower }}</span>
+    {% endif %}
+{% endmacro %}
+
+{% macro profileEditionsDiscountNotes(cost) %}
+    {% if cost and cost.price and cost.price.formatted and cost.price.formatted.discount %}
+        {% if cost.price.formatted.originalFullPrice %}
+        <li class="profile-checklist__item profile-edition__price--previous">
+            {{ profileFormattedPrice(cost.price.formatted.originalFullPriceElements) }}
+        </li>
+        {% endif %}
+        {% if cost.price.formatted.discountExpirationNotice %}
+        <li class="profile-checklist__item">
+            {{ cost.price.formatted.discountExpirationNotice }}
+        </li>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro profileEditionCost(cost, isFirst = false) %}
+    <li class="profile-checklist__item profile-edition__price {{ 'profile-edition__price--primary' if isFirst }}">
+        {{ profileFormattedPrice(cost.formattedFullPriceElements, isFirst) }}
+        {{ profileLimits(cost.unit) }}
+    </li>
+    {{ profileEditionsDiscountNotes(cost) }}
+{% endmacro %}
+
+{% macro profileAddonProductCost(cost, isFirst = false) %}
+    <li class="addon-products-checklist__item addon-products__price {{ 'addon-products__price--primary' if isFirst }}">
+        {{ profileFormattedPrice(cost.formattedFullPriceElements, isFirst) }}
+        {{ profileLimits(cost.unit) }}
+    </li>
+{% endmacro %}

@@ -1,0 +1,93 @@
+{% extends "/layout/profile.html" %}
+
+
+{% from "/macros/analytics.html" import utagDataScript %}
+{% from "/macros/breadcrumb/breadcrumb.html" import breadcrumb %}
+
+
+{% block contentSection %}
+
+{% from "/pages/profile/components/grid-features.html" import productFeatures %}
+{% from "/pages/profile/components/bundles.html" import productBundles %}
+{% from "/pages/profile/components/reviews.html" import reviews %}
+{% from "/pages/profile/components/policies-support.html" import support %}
+{% from "/pages/profile/components/addons.html" import addons %}
+
+
+{% block content %}
+{% from "/pages/profile/components/product-summary.html" import productSummary %}
+{% from "/pages/profile/components/editions-pricing.html" import editionsPricing with context %}
+{% from "/macros/sliders/carousel.html" import carousel with context %}
+{% from "/pages/profile/components/simple-tabs.html" import productTabs %}
+{% from "/pages/profile/components/overview.html" import productOverview %}
+{% from "/pages/profile/components/support.html" import productSupport with context %}
+
+{% set breadcrumbData = [{label: i18n.Home, link: '/'+ config.locale.code +'/home'}] %}
+{% if application.categories.items.length > 0 %}
+{% set breadcrumbData = (breadcrumbData.push({label: application.categories.items[0].label, link:  application.categories.items[0].href}), breadcrumbData) %}
+{% endif %}
+{% set breadcrumbData = (breadcrumbData.push({label: application.summary.title}), breadcrumbData) %}
+
+{% block data %}
+<data type="navigator"/>
+{% endblock %}
+
+{{breadcrumb(breadcrumbData)}}
+
+<section class="position-relative section--white p-0">
+    <img src="{{r('/assets/images/banner-2-red.png')}}" style="width: 100%;" class="section-bg"/>
+    {{productSummary(application)}}
+</section>
+
+<div id="apptop" data-vue-page="profile">
+    <div id="profile-page" class="profile-page">
+        <section class="container">
+            {{ productTabs(application) }}
+        </section>
+        <section id="Overview" class="section--gutter">
+            {{ productOverview(application) }}
+        </section>
+    </div>
+</div>
+{% if application.features.items.length > 0 %}
+<section id="Features" class="section section--light-grey">
+    {% for navItem in application.navigation.items %}
+    {% if 'features' === navItem.value %}
+    {{ carousel('profile', application.features, application.features.items, 'profile', true, false, false, 'desktop',
+    1, true, false, navItem.label)
+    }}
+    {% endif %}
+    {% endfor %}
+</section>
+{% endif %}
+{% if application.editions.items.length > 0 %}
+<section id="Editions" class="section section--white">
+    {{editionsPricing(application.editions)}}
+</section>
+{% endif %}
+<div id="appbottom" data-vue-page="profile2">
+    <section id="Policies" class="section section--gallery gutter__large--y">
+        {{ productSupport(application) }}
+    </section>
+    <!--    <Toaster :application="{{ application|dump }}"></Toaster>-->
+</div>
+{% endblock %}
+
+{% endblock %}
+
+{% block analytics_data %}
+{{ utagDataScript({
+journey_name: 'AppDirect Purchase',
+journey_type: 'acquisition',
+page_name: 'uk:business:app direct:product:Microsoft Office 365',
+page_title: 'Microsoft Office 365',
+site_section_lvl_3: 'product',
+product_brand: 'Microsoft',
+product_category: 'Business Software',
+product_event: 'view',
+product_id: '',
+product_name: 'Office 365',
+product_sku: '',
+product_target_segment: 'small business'
+}) }}
+{% endblock %}

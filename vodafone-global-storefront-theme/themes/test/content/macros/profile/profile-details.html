@@ -1,0 +1,20 @@
+{% from "/macros/simple-tooltip.html" import simpleTooltip %}
+
+{% macro profileDetails(list, title) %}
+    {% if title %}
+        <h4>{{ title }}</h4>
+    {% endif %}
+    <ul class="profile-tooltip-checklist profile-tooltip-checklist--flush">
+        {% for item in list %}
+            {% if item.tooltip.length %}
+                <li class="profile-tooltip-checklist__item">
+                    <div class="tooltip">{{ item.content }}
+                        {{ simpleTooltip(item.tooltip, "top") }}
+                    </div>
+                </li>
+            {% else %}
+                <li class="profile-tooltip-checklist__item">{{ item.content }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endmacro %}

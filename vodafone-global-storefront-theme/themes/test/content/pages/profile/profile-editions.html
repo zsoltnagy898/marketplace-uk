@@ -1,0 +1,21 @@
+{% extends "/layout/profile.html" %}
+{% from "/macros/profile/profile-editions.html" import editionsContent %}
+{% from "/macros/profile/profile-addon-products.html" import addonProductsContent %}
+
+{% block data %}
+    <data type="application-additional-content" value="recommendations,addonProducts,callToActionsEditions">
+{% endblock %}
+
+{% block profileContent %}
+    {% if application.editions.items.length %}
+        {{ editionsContent(application.editions) }}
+    {% endif %}
+    {% if application.addonProducts.items.length %}
+        {{ addonProductsContent(application.addonProducts) }}
+    {% endif %}
+    <script src="{{ r('/assets/js/profile-editions.js') }}"></script>
+    <script>
+        $(".js-editions").editionSizing();
+        $(".js-edition-bullets").editionBulletsToggle();
+    </script>
+{% endblock %}

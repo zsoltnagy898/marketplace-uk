@@ -1,0 +1,114 @@
+{% from "/macros/profile/profile-details.html" import profileDetails %}
+{% from "/macros/profile/profile-cost.html" import profileEditionCost %}
+{% from "/macros/profile/profile-fee.html" import profileFee %}
+{% from "/macros/profile/profile-action-button.html" import productActionButton %}
+{% from "/macros/profile/profile-select-button.html" import productSelectButton %}
+{% from "/macros/profile/profile-editions-slider.html" import editionsSlider %}
+
+
+{% macro configureContent(editions, configurator, query) %}
+{% set hideEditions = query.showEditions === "false" or query.action === "browseAddons" %}
+
+<div class="configurator-editions-container">
+    {% if hideEditions %}
+        <div class="configurator-editions-toggle">
+            <div class="toggle-expand">
+                <div class="toggle-expand-wrapper">
+                    <a class="toggle-expand-wrapper__label">Change Edition</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="js-editions-container">
+    <h2 class="configurator-header">{{ configurator.i18n.selectEdition }}</h2>
+    <div class="row js-editions configurator-editions">
+        
+        {% for edition in editions.items %}
+            <div class="col-xs-8 col-fix-sm-4 profile-box js-edition-box configurator-editions-box" data-edition-id="{{ edition.id }}" data-ppid="{{ edition.plans[0].uuid }}">
+                <div class="configurator-slider">
+                <div class="profile-edition">
+                    <div class="profile-edition__header js-edition-header">
+                        <h3>{{ edition.name }}</h3>
+                    </div>
+                    <div class="profile-edition__content">
+                        <div class="profile-edition__prices js-edition-prices">
+                            <ul class="profile-checklist profile-checklist--flush">
+                                {% for plan in edition.plans %}
+                                    {% if plan.costs and plan.costs.flatPrice %}
+                                        {{ profileEditionCost(plan.costs.flatPrice, true) }}
+                                    {% endif %}
+                                    {% if plan.costs and plan.costs.unitPrice %}
+                                        {% for unitPrice in plan.costs.unitPrice %}
+                                            {% set unitPriceIndex = loop.index %}
+                                            {% for usageRange in unitPrice.usageRange %}
+                                                {{ profileEditionCost(usageRange, unitPriceIndex === 1 and not plan.costs.flatPrice) }}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if plan.contractLength %}
+                                        <li class="profile-checklist__item badges">
+                                            <span class="badge badge__outline">{{ plan.formattedContract }}</span>
+                                        </li>
+                                    {% endif %}
+                                    {% if plan.setupFees.length or plan.contractFees.length %}
+                                        {{ profileFee(plan.setupFees, plan.contractFees) }}
+                                    {% endif %}
+                                    {% if loop.index < edition.plans.length %}
+                                        <li class="profile-checklist__item profile-edition__prices-separator">
+                                            <span>{{ editions.i18n.tierSeparator }}</span>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="profile-edition__details-container js-edition-details js-edition-details--configure">
+                            {% if edition.callToAction.label.length %}
+                                <div class="profile-edition__action profile-actions">
+                                    {% set editionOptions = {
+                                        buttonSize: 'fullWidth',
+                                        isAddToCartStyle: true
+                                    } %}
+                                    {{ productActionButton(edition.callToAction, editionOptions) }}
+                                </div>
+                            {% endif %}
+                                <div class="profile-edition__action profile-actions">
+                                    {% set editionOptions = { isFullWidth: true } %}
+                                    {{ productSelectButton(edition.callToAction, editions.i18n, editionOptions, true) }}
+                                </div>
+                            {% if edition.audience.length %}
+                                <div class="profile-edition__details">
+                                    {{ profileDetails(edition.audience, editions.i18n.audience) }}
+                                </div>
+                            {% endif %}
+                            {% if edition.items.length %}
+                                <div class="profile-edition__details">
+                                    {{ profileDetails(edition.items, editions.i18n.inclusions) }}
+                                </div>
+                            {% endif %}
+                            {% if edition.bullets.length %}
+                                <div class="profile-edition__details profile-edition__bullets js-edition-bullets">
+                                    {{ profileDetails(edition.bullets) }}
+                                </div>
+                            {% endif %}
+                            <div class="profile-edition__details-toggle js-edition-details-toggle">
+                                <a class="toggle-show">{{ configurator.i18n.viewDetails }}</a>
+                                <a class="toggle-hide">{{ configurator.i18n.hideDetails }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+</div>
+<div class="edition-arrows-container {{ 'edition-arrows-container__open' if not hideEditions }}">
+    <button type="button" class="button toolbar--item configure-slider-prev" aria-label="left">
+        <span><i class="icon__arrow_left"></i> </span>
+    </button>
+    <button type="button" class="button toolbar--item configure-slider-next" aria-label="right">
+        <span><i class="icon__arrow_right"></i></span>
+    </button>
+</div>
+{% endmacro %}

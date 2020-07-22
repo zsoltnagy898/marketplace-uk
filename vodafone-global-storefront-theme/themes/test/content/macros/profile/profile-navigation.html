@@ -1,0 +1,54 @@
+{% from "/macros/profile/profile-action-button.html" import productActionButton %}
+
+{% macro profileNavigation(navigationItems, actions) %}
+    <nav class="tertiary-nav">
+        <ul class="tertiary-nav--items adb-profile_header--navigation_content d-none{{ ' d-lg-block' if navigationItems.length > 6 else ' d-md-block' }}">
+            {% for nav in navigationItems %}
+                <li class="tertiary-nav--item{{ ' is-selected' if nav.selected }}">
+                    <a class="tertiary-nav--link" href="{{ nav.href }}">{{ nav.label }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <ul class="tertiary-nav--items layout-column__first{{ ' d-lg-none' if navigationItems.length > 6 else ' d-md-none' }}">
+            <li class="tertiary-nav--item tertiary-nav--mobile_menu">
+                {% if navigationItems %}
+                <menu class="tertiary-nav__menu context_menu is-active">
+                    <button class="button__small dropdown dropdown__small js-dropdown-profile" type="button">
+                        {% for nav in navigationItems %}
+                            {% if nav.selected %}
+                                <span class="tertiary-nav__menu__label">{{ nav.label }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </button>                    
+                    <div class="context_menu--menu context_menu--profile is-hidden" role="menu">
+                        <ul class="stack">
+                            {% for nav in navigationItems %}
+                                <li class="stack--item container">
+                                    <a class="link__option stack--item_content{{ ' not-selected' if not nav.selected }}" href="{{ nav.href }}"> {{ nav.label }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </menu>
+                {% endif %}
+            </li>
+            <li class="tertiary-nav--item tertiary-nav--mobile_menu tertiary_nav--item__right">
+                <div class="tertiary-nav--button">
+                    {% if actions.items.length %}
+                        {% set CTAOptions = {
+                            buttonSize: 'small',
+                            isAddToCartStyle: true
+                        } %}
+                        {% for action in actions.items %}
+                            {{ productActionButton(action, CTAOptions) }}
+                        {% endfor  %}
+                    {% endif  %}
+                </div>
+                <div class="card__caption">{{ actions.caption.text | safe }}</div>
+            </li>
+        </ul>
+    </nav>
+    <script>
+        $(".js-dropdown-profile").dropDownProfile();
+    </script>
+{% endmacro %}

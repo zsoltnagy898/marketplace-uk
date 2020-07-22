@@ -1,0 +1,163 @@
+{% extends "/layout/profile.html" %}
+
+{% from "/macros/rating.html" import rating %}
+{% from "/macros/profile/profile-reviews.html" import writeReviewModal, editReview, confirmationModal, commentForm %}
+{% from "/macros/profile-image.html" import productImageMedium, userImageMedium %}
+
+{% set localI18n = application.reviews.i18n %}
+{% set reviews = application.reviews %}
+{% set currentUserReview = application.reviews.currentUserReview %}
+{% set user = config.user %}
+
+{% block data %}
+    <data type="application-additional-content" value="recommendations,reviews">
+{% endblock %}
+
+{% block contentSection %}
+    <div class="js-profile-reviews">
+        <div class="feature-actions profile-post--container">
+            {% if reviews.items.length %}
+                <div class="reviews-summary">
+                    <div class="reviews-summary--average-rating">
+                        <h3>{{ localI18n.labels.averageReview }}</h3>
+                        {{ rating(reviews.rating) }}
+                        <div class="caption">
+                            {{ localI18n.labels.ratioOutOfNumReviewTotal }}
+                        </div>
+                    </div>
+                    {% if user.isLoggedIn %}
+                        <div class="reviews-summary--user-rating">
+                            <h3>{{ localI18n.labels.myReview }}</h3>
+                            {{ rating(currentUserReview.rating) }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="reviews-summary--no-rating">
+                    <h3>{{ localI18n.labels.noReviews }}</h3>
+                </div>
+            {% endif %}
+            <div class="feature-actions-button">
+                {% if user.isLoggedIn %}
+                    <button type="button" class="button button__primary js-profile-post-entry" aria-label="{{ localI18n.labels.writeReview }}">
+                        {{ localI18n.labels.writeReview }}
+                    </button>
+                {% else %}
+                    <button type="button" onclick="window.location= '/login?redirectUrl='+window.location.href " class="button button__primary" aria-label="{{ localI18n.labels.signup }}">
+                        {{ localI18n.labels.signup }}
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="js-notification"></div>
+
+        {% if reviews.featured.length %}
+            <div class="featured-reviews">
+                <h2>{{ localI18n.labels.featuredReviews }}</h2>
+                <section class="slat-container">
+                    {% for review in reviews.featured %}
+                        <div class="slat">
+                            <div class="slat--image slat--column">
+                                {{ productImageMedium(review.source.logoUrl) }}
+                            </div>
+                            <div class="slat--content slat--column">
+                                <h3>{{ review.source.name }}</h3>
+                                <p>{{ review.linkDescription }} <a href="{{ review.link }}">{{ localI18n.labels.readMore }}</a></p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </section>
+            </div>
+        {% endif %}
+
+        {% if reviews.items.length %}
+            <div class="featured-reviews" id="customer-entries-container">
+                <h2 class="js-nbEntries">{{reviews.items.length}} {{ localI18n.labels.reviews }}</h2>
+                <div class="slat-container js-entry-container">
+                    <div class="list profile-entries">
+                        {% for review in reviews.items %}
+                            <div class="slat js-slat" data-entry-id="{{ review.id }}" data-endpoint="{{ review.actionEndpoints.entry }}" data-comments-endpoint="{{ review.actionEndpoints.comments }}">
+                                <div class="slat--image slat--column">
+                                    {{ userImageMedium(review.author.profilePicUrl) }}
+                                    {% if review.isCurrentUserReview %}
+                                        <h6 class="slat--image_caption">{{ localI18n.labels.myReview }}</h6>
+                                    {% endif %}
+                                </div>
+                                <div class="slat--content slat--column">
+                                    <h3 class="entry-title">{{ review.title }}</h3>
+                                    {{ rating(review.rating) }}
+                                    <p class="entry-comment">{{ review.comment }}</p>
+                                    <p class="subtitle">{{ review.byDate }}</p>
+                                    <p class="caption">
+                                        {% if review.commentCount %}
+                                            <a class="js-comment-hide is-hidden caption-element">{{ review.i18n.hideCommentCount }}</a>
+                                            <a class="js-comment-show caption-element">{{ review.i18n.showCommentCount }}</a>
+                                        {% endif %}
+                                        {% if user.isLoggedIn %}
+                                            <a class="js-menu-reply caption-element">{{ localI18n.labels.comment }}</a>
+                                        {% endif %}
+                                        {% if review.isCurrentUserReview %}
+                                            <a class="js-menu-edit caption-element">{{ localI18n.labels.edit }}</a>
+                                        {% endif %}
+                                        {% if review.isCurrentUserReview and not review.commentCount %}
+                                            <a class="js-menu-delete caption-element">{{ localI18n.labels.delete }}</a>
+                                        {% endif %}
+                                    </p>
+                                    {{ editReview(localI18n, review) }}
+                                    {{ commentForm(localI18n) }}
+                                    <div class="comments js-comments is-hidden">
+                                    {% for comment in review.comments %}
+                                        <div data-component="threaded-comment" class="slat slat__indented" data-comment-id="{{ comment.id }}" data-endpoint="{{ comment.actionEndpoint }}">
+                                            <div class="slat--column">
+                                                <div class="slat--image">
+                                                    {{ userImageMedium(commit.author.profilePicUrl) }}
+                                                </div>
+                                                {% if comment.isCurrentUserComment %}
+                                                    <h6 class="slat--image_caption">{{ localI18n.labels.myReview }}</h6>
+                                                {% endif %}
+                                            </div>
+                                            <div class="slat--content slat--column">
+                                                <h3></h3>
+                                                <p>{{ comment.comment }}</p>
+                                                <p class="subtitle">{{ comment.i18n.byDate }}</p>
+                                                {% if comment.isCurrentUserComment %}
+                                                    <p class="caption js-menu-container">
+                                                        <a class="js-menu-delete-comment">{{ localI18n.labels.delete }}</a>
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="container_footer">
+                        <div class="container_footer--item count-container">
+                            <span class="subtitle js-nbResults">{{ localI18n.labels.custReviewsResults }}</span>
+                        </div>
+                        {% if reviews.items.length >= 7 %}
+                            <div class="container_footer--item__last pager-container js-pager">
+                                <ul class="pagination pagination--numbers"></ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    {{ writeReviewModal(localI18n) }}
+    {{ confirmationModal("delete-entry-confirmation", localI18n.labels.confirm, localI18n.messages.confirm.deleteEntry, localI18n) }}
+    {{ confirmationModal("delete-comment-confirmation", localI18n.labels.confirm, localI18n.messages.confirm.deleteComment, localI18n) }}
+
+    <script src="{{ r('/assets/js/profile-multi-entry.js') }}"></script>
+    <script>
+        $(".js-profile-reviews")
+            .profileEntries({
+                    endpoint: "{{ application.reviews.actionEndpoint }}",
+                    i18n: '{{ localI18n | dump | escape }}'
+                }
+            );
+    </script>
+{% endblock %}

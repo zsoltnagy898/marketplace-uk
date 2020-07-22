@@ -1,0 +1,44 @@
+.card {
+    display: flex;
+    margin: 14px 0;
+    text-align: left;
+    &:first-child {
+        margin-top: 0;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+    &__content {
+        min-width: 0;
+    }
+    &__image {
+        float: left;
+        margin-bottom: 0;
+        margin-right: 14px;
+        position: relative;
+        @include media-breakpoint-down(xm) {
+            .id__sq_large {
+                .ribbon {
+                    top: 11px;
+                    right: -58px;
+                    font-size: 7px;
+                    line-height: 2em;
+                }
+            }
+        }
+        .ribbon-wrapper {
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 65px;
+            width: 65px;
+        }
+    }
+    &__image-item {
+        margin-left: -36px;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}

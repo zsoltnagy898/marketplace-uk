@@ -1,0 +1,75 @@
+{% from "/macros/profile/profile-navigation.html" import profileNavigation %}
+{% from "/macros/profile/profile-action-button.html" import productActionButton %}
+{% from "/macros/profile-image.html" import productImageLarge %}
+{% from "/macros/simple-tooltip.html" import simpleTooltip %}
+
+{% macro productHeadCard(app) %}
+{% set summary = app.summary %}
+{% set categories = app.categories %}
+{% set navigation = app.navigation %}
+{% set leads = app.leads %}
+{% set actions = app.callToActions %}
+
+<div class="profile_header">
+    <div class="profile_header--content">
+        <div class="layout-default">
+            <div class="container relative clearfix">
+                <div class="card__image">
+                    {{ productImageLarge(summary.logoSrc, null, summary.productRibbon) }}
+                </div>
+                <div class="card__content">
+                    <h1 class="profile_header--title">{{ summary.title }}</h1>
+                    <div class="summary--caption">{{ summary.details }}</div>
+                    <div class="badges">
+                        {% if categories and categories.items and categories.items.length %}
+                            {% for category in categories.items %}
+                                <span class="badge badge__outline d-md-inline-block d-none"><a href="{{ category.href }}">{{ category.label }}</a></span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card__actions profile-actions d-none d-md-block">
+                    {% set smallCTAOptions = {
+                        buttonSize: 'small',
+                        isAddToCartStyle: true
+                    } %}
+                    {% set largeCTAOptions = {
+                        buttonSize: 'large',
+                        isAddToCartStyle: true
+                    } %}
+                    {% if actions.items.length > 2 %}
+                        <div class="js-scroll-hide">
+                            {% for action in actions.items %}
+                                {{ productActionButton(action, largeCTAOptions) }}
+                            {% endfor  %}
+                        </div>
+                        <div class="js-scroll-show">
+                            {% for action in actions.items %}
+                                {{ productActionButton(action, smallCTAOptions) }}
+                            {% endfor  %}
+                        </div>
+                    {% else %}
+                        {% for action in actions.items %}
+                            {{ productActionButton(action, largeCTAOptions) }}
+                        {% endfor  %}
+                    {% endif %}
+
+                    <p class="card__caption js-scroll-hide {{ 'tooltip' if actions.caption.tooltip }} d-none d-md-block">
+                        <span>{{ actions.caption.text | safe }}</span>
+                        {{ simpleTooltip(actions.caption.tooltip, "bottom") }}
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile_header--navigation">
+        <div class="layout-default">
+            <div class="container">
+                {{ profileNavigation(navigation.items, actions) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endmacro %}

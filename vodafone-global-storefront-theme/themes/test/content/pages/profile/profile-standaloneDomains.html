@@ -1,0 +1,127 @@
+{% extends "/layout/profile.html" %}
+{% from "/macros/loader.html" import loaderLarge, loadingOverlay %}
+
+{% block data %}
+    <data type="application-additional-content" value="recommendations">
+{% endblock %}
+
+{% block profileContent %}
+    <div class="layout-content__section loading-overlay__wrapper js-domains">
+        {{ loadingOverlay('js-domains-loader', loaderLarge()) }}
+        <h2>{{ application.domains.i18n.sectionTitle }}</h2>
+        <div class="domains__search">
+            <input
+                name="search"
+                type="text"
+                class="search_field input_row input_row__search domains__search-box js-domains-input"
+                placeholder="{{ application.domains.i18n.search }}"
+                aria-labelledby="searchDomains"
+            />
+            <button
+                id="searchDomains"
+                type="button"
+                class="button button__primary domains__search-button domains__button js-domains-button"
+                aria-label="{{ application.domains.i18n.search }}"
+            >
+                <i class="icon__search"></i>
+                <span>{{ application.domains.i18n.search }}</span>
+            </button>
+        </div>
+        <div class="domains__result row">
+            <div class="col col-sm-5 domains__column">
+                <div class="container-box">
+                    <div class="container_header">
+                        <h5 class="container_header--title container_header--item">{{ application.domains.i18n.recommendedTitle }}</h5>
+                    </div>
+                    <div class="container_content js-recommended-content">
+                        <div class="container__placeholder">{{ application.domains.i18n.recommendedPlaceholder }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-sm-5 domains__column">
+                <div class="container-box">
+                    <div class="container_header">
+                        <h5 class="container_header--title container_header--item">
+                            {{ application.domains.i18n.selectedDomains if config.canRouteToV2 else application.domains.i18n.addedTitle }}
+                        </h5>
+                    </div>
+                    <div class="container_content js-added-content">
+                        <div class="container__placeholder">{{ application.domains.i18n.addedPlaceholder }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="domains__checkout">
+            {% if config.canRouteToV2 %}
+                <div class="button_group">
+                    {% if config.channelSettings.isAddToCartCTAEnabled %}
+                        <button type="button" class="button button__addToCart domains__button--v2 js-checkoutv2-addToCart">
+                            <i class="icon__cart"></i>
+                            <span>{{ application.domains.i18n.addToCart }}</span>
+                        </button>
+                    {% endif %}
+                    <button type="button" class="button button__emphasis domains__button--v2 js-checkoutv2-buyNow">
+                        {{ application.domains.i18n.buyNow }}
+                    </button>
+                </div>
+            {% endif %}
+            {% if not config.canRouteToV2 %}
+                <button type="button" class="button button__emphasis button__large js-checkout-button" disabled>
+                    {{ application.domains.i18n.checkout }}
+                </button>
+            {% endif %}
+        </div>
+        <div class="is-hidden js-domains-placeholder"><div class="container__placeholder"></div></div>
+        <div class="is-hidden js-domains-row">
+            <div class="row no-gutters domains__row">
+                <div class="row no-gutters col col-xm-4">
+                    <div class="col col-xm-4 domains__name">
+                        <strong class="js-domains-row__name"></strong>
+                    </div>
+                    <div class="col col-xm-2 domains__price">
+                        <strong class="js-domains-row__price"></strong> / {{ application.domains.i18n.frequency }}
+                    </div>
+                </div>
+                <div class="js-domains-row__button col col-xm-2 domains__action"></div>
+            </div>
+        </div>
+        <div class="is-hidden js-domains-row__add">
+            <button type="button" class="button button__secondary domains__button js-domains-row__button-add">
+                <i class="icon__plus{{ '-V2' if config.canRouteToV2 }}"></i>
+                <span>
+                    {{ application.domains.i18n.select if config.canRouteToV2 else application.domains.i18n.add }}
+                </span>
+            </button>
+        </div>
+        <div class="is-hidden js-domains-row__added">
+            <button type="button" class="button button__emphasis domains__button" disabled>
+                <i class="icon__check"></i>
+                <span>
+                    {{ application.domains.i18n.selected if config.canRouteToV2 else application.domains.i18n.added }}
+                </span>
+            </button>
+        </div>
+        <div class="is-hidden js-domains-row__remove">
+            <button
+                type="button"
+                class="button button__secret domains__button js-domains-row__button-remove"
+                aria-label="{{ application.domains.i18n.removeDomain }}"
+            >
+                <i class="icon__trash"></i>
+            </button>
+        </div>
+    </div>
+    <script src="{{ r('/assets/js/profile-domains.js') }}"></script>
+    <script>
+        $(".js-domains").profileDomains({
+            appId: '{{ application.config.id }}',
+            eppid: '{{ application.editions.items[0].plans[0].uuid }}',
+            endpoint: '{{ application.domains.endpoint }}',
+            query: '{{ application.domains.options | dump | safe }}',
+            userIsLoggedIn: '{{ config.user.isLoggedIn }}',
+            loginUrl: '{{ application.domains.loginUrl }}',
+            checkoutUrl: '{{ application.domains.checkoutUrl }}',
+            i18n: '{{ application.domains.i18n | dump | safe }}'
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,143 @@
+.configurator-header {
+    margin-top: 35px;
+    margin-bottom: 30px;
+}
+
+@include media-breakpoint-down(xm) {
+    & .configurator-editions {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+    .configurator__container {
+        position: relative;
+        .slick-slider {
+            margin-top: 24px;
+            touch-action: manipulation;
+        }
+        .slick-list {
+            overflow: hidden;
+        }
+        .edition-arrows-container {   
+            &__open {
+                display: block;
+                .configure-slider-prev {
+                    position: absolute;
+                    outline: none;
+                    top: 150px;
+                    left: -9px;
+                    opacity: 0.7;
+                    border-radius: 50%;
+                    height: 36px;
+                    width: 36px;
+                    padding: 0 3px 0 0;
+                    -webkit-tap-highlight-color: transparent;
+                }
+                .configure-slider-next {
+                    position: absolute;
+                    outline: none;
+                    right: -9px;
+                    top: 150px;
+                    opacity: 0.7;
+                    border-radius: 50%;
+                    height: 36px;
+                    width: 36px;
+                    padding: 0 0 0 3px;
+                    -webkit-tap-highlight-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+.configurator-editions-toggle {
+    position: relative;
+    text-align: center;
+    .toggle-expand {
+        .toggle-expand-wrapper {
+            display: inline;
+            background-color: #fff;
+            padding: 0 24px;
+            &:after {
+                margin-left: 2px;
+                position: absolute;
+                font-family: AppDirectIcons;
+                content: "\e038";
+                font-size: 17px;
+                color: #009abf;
+            }
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                top: 50%;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background-color: #eaeaea;
+            }
+            &__label {
+                margin-left: -14px;
+            }
+        }
+        &__open {
+            display: none;
+        }
+    }
+}
+
+.edition-arrows-container,
+.addon-selected,
+.edition-selected,
+.js-editions-container {
+    display: none;
+}
+
+.configurator-editions-container {
+    .configurator-editions {
+        display: flex;
+    }
+}
+
+.btn-remove-addon {
+    display: none;
+    margin-top: 5px;
+    padding-top: 10px;
+}
+
+.addon-configurator,
+.configurator-editions-box {
+    &--selected {
+        .button {
+            &__primary {
+                &:before {
+                    font-family: AppDirectIcons;
+                    content: "\e003";
+                    font-size: 17px;
+                    position: absolute;
+                    left: 95px;
+                    text-align: center;
+                    width: 19px;
+                }
+                color: $BUTTON_PRIMARY_BACKGROUND_SELECTED;
+                text-shadow: none;
+                background: #fff;
+                box-shadow: none;
+
+                &:hover,
+                &:focus {
+                    box-shadow: 0 2px 3px 0 $BUTTON_EMPHASIS_BOX_SHADOW_HOVER_2;
+                }
+            }
+        }
+        .addon-select,
+        .edition-select {
+            display: none;
+        }
+        .addon-selected,
+        .edition-selected,
+        .btn-remove-addon {
+            display: inline-block;
+        }
+    }
+}

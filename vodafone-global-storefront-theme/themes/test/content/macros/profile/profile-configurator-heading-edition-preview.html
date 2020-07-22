@@ -1,0 +1,56 @@
+{% from "/macros/profile/profile-cost.html" import profileFormattedPeriod %}
+{% from "/macros/profile/profile-cost.html" import profileEditionCost %}
+{% from "/macros/profile-image.html" import productImageMedium %}
+{% from "/macros/profile/profile-action-button.html" import productActionButton %}
+
+{% macro editionPreview(summary, configurator, actions, isSmall) %}
+    <div class="preview-wrapper">
+        <div class="selected-edition--wrapper">
+            <div class="selected-edition--title">{{ configurator.i18n.selectedEdition }}</div>
+            <div class="selected-edition--content">
+                {{ editionPreviewRow(summary, configurator, configurator.selectedEdition) }}
+                <div class="selection-preview__button-list">
+                    {% set size = 'small' if isSmall else 'large' %}
+                    {% set CTAOptions = {
+                        buttonSize: size,
+                        isAddToCartStyle: true
+                    } %}
+                    {% for action in actions.items %}
+                        <div class="configurator--button"
+                            data-base="{{action.urlCreator.base}}"
+                            data-action-type="{{action.urlCreator.actionType}}"
+                            data-edition-param="{{action.urlCreator.editionParam}}"
+                            data-addon-param="{{action.urlCreator.addonParam}}"
+                        >
+                            {{ productActionButton(action, CTAOptions) }}
+                        </div>
+                    {% endfor  %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro editionPreviewRow(summary, configurator, edition) %}
+    <div class="js-selected-edition selected-edition--selection">
+        <div class="selected-edition--overview">
+            <div class="card__image">
+                {{ productImageMedium(summary.logoSrc, null, summary.productRibbon) }}
+            </div>
+            <div class="title">{{ edition.name }}</div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro profileConfiguratorPrice(plan) %}
+    {% if plan.costs and plan.costs.flatPrice %}
+        {{ profileEditionCost(plan.costs.flatPrice, true) }}
+    {% elseif plan.costs and plan.costs.unitPrice %}
+        {% for unitPrice in plan.costs.unitPrice %}
+            {% set unitPriceIndex = loop.index %}
+            {% for usageRange in unitPrice.usageRange %}
+                {{ profileEditionCost(usageRange, unitPriceIndex === 1 and not plan.costs.flatPrice) }}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endmacro %}

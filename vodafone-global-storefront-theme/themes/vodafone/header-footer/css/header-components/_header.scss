@@ -1,0 +1,307 @@
+@import "../../../assets/css/custom/variables";
+
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.h-100 {
+  height: 100% !important;
+}
+
+.ad-uniheader {
+  background: $headerNavBg;
+  border-bottom: 1px solid $headerNavBorderColor;
+  font-family: $nav-font-family;
+  height: $nav-height;
+  position: relative;
+  box-sizing: content-box;
+  z-index: 11;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: $nav-height;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    &--section {
+      display: flex;
+      align-content: center;
+      height: $nav-height;
+      padding-left: 0;
+
+      &-left {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        height: 100%;
+      }
+
+      > .ad-component_list-item,
+      > .ad-component_list--item {
+        height: 100%;
+        display: inline-block;
+        border-left: 1px solid $headerNavBorderColor;
+        border-right: 1px solid $headerNavBorderColor;
+        margin-left: -1px;
+        vertical-align: top;
+      }
+    }
+  }
+}
+
+// Styling the main nav links
+.ad-component--link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: $headerNavFontColor;
+  font-size: $nav-item-font-size;
+  height: 100%;
+  padding: 0 $nav-item-padding-horizontal;
+
+  &:hover {
+    background-color: $headerNavItemBgHover;
+    color: $headerNavFontHoverColor;
+    text-decoration: none;
+  }
+}
+
+// Styling the user image
+.ad-img-profile-pic {
+  width: $profile-img-width;
+  height: $profile-img-height;
+  margin-right: $profile-img-margin-right;
+  border-radius: $profile-img-border-radius;
+}
+
+// Hide the Nav headings from view (accessibility)
+// https://www.w3.org/WAI/tutorials/menus/structure/
+.not-visible {
+  display: none;
+}
+
+.profile__options {
+  background-color: white;
+  padding: 8px 0;
+  border: none;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
+  border-radius: 6px;
+  position: absolute;
+  top: 100%;
+  width: 236px;
+  z-index: 5;
+  list-style: none;
+  display: none;
+  text-align: left;
+
+  .ad-component_list-item {
+    &:before {
+      content: "";
+    }
+  }
+
+  .ad-component--link {
+    display: block;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+  }
+
+  .ad-component_list-item {
+    list-style: none;
+    position: relative;
+
+    a {
+      color: #212529;
+      font-family: "VodafoneRegular";
+      font-size: 18px;
+    }
+
+    &:hover {
+      a {
+        text-decoration: none;
+        background-color: #f8f9fa;
+      }
+    }
+  }
+
+  .ad-component_list {
+    padding: 0;
+  }
+
+  &.profile__options-mobil {
+    background-color: $color-mercury-dark;
+    box-shadow: none;
+    border-radius: 0;
+    position: inherit;
+    padding: 0;
+    width: 100%;
+
+    .ad-component_list-item {
+      .ad-component--link {
+        padding: 0.5rem 1.5rem;
+      }
+
+      a {
+        font-size: 16px;
+      }
+
+      &:hover {
+        a {
+          background-color: white;
+        }
+      }
+    }
+  }
+}
+
+.profile__header-mobile {
+  font-size: 20px;
+
+  svg {
+    color: #333;
+    width: 20px;
+  }
+}
+
+.profile-dropdown {
+  min-width: 190px;
+  overflow: hidden;
+}
+
+.help {
+  svg {
+    width: 18px;
+    margin-left: 4px;
+  }
+}
+
+.no-gutter--all {
+  margin: 0 !important;
+}
+
+.visually-hidden {
+  background: #e60000 !important;
+  border: none !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+}
+
+.icon {
+  fill: none;
+  stroke: currentColor;
+  vertical-align: middle;
+}
+
+.icon--small {
+  width: 28px;
+  height: 28px;
+}
+
+.icon-image {
+  vertical-align: middle;
+}
+
+.icon-image--small {
+  height: 28px;
+}
+
+.icon-image--small-container {
+  height: 28px;
+  width: 28px;
+}
+
+.language__icon {
+  width: 12px;
+  height: auto !important;
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+
+  &.language__icon--up, &.profile__icon--up {
+    transform: rotate(180deg) translate(0, 50%);
+    top: 50%;
+  }
+}
+
+.language__options {
+  position: absolute;
+  top: 100%;
+  width: 236px;
+  z-index: 5;
+  background-color: #4a4d4e;
+  padding: 0;
+  list-style: none;
+  display: none;
+  text-align: left;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    font-family: VodafoneRegular;
+  }
+}
+
+.language__options-mobile {
+  position: inherit;
+  width: 100%;
+  padding: 0 !important;
+  text-align: left;
+
+  .ad-component--link {
+    padding: 0.5rem 1.5rem;
+
+    &:hover {
+      background-color: white;
+      color: inherit;
+    }
+  }
+}
+
+.brand {
+  margin: 12px 10px 12px 0;
+}
+
+.brand__logo {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  vertical-align: top;
+}
+
+@media only screen and (max-width: 1024px) {
+  .brand {
+    margin: 10px 10px 10px 0;
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand__logo {
+    height: 100%;
+    width: 100%;
+  }
+}

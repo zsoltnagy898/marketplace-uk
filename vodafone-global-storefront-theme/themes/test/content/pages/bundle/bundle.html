@@ -1,0 +1,41 @@
+{% extends "/layout/bundle.html" %}
+{% from "/macros/bundle/profile-bundle-products.html" import bundleProductToggleNav, bundleProductToggleContent %}
+{% from "/macros/bundle/profile-bundle-pricing.html" import bundleSidebarPricing %}
+{% from "/macros/watch-demo.html" import watchDemoModal %}
+
+{% block profileContent %}
+    <div class="layout-content__section row">
+        <div class="col-xs-8 col-sm-5">
+            <h2 class="title__xxxxxlarge">{{ bundle.overview.title | safe }}</h2>
+            <p>{{ bundle.overview.description | safe }}</p>
+        </div>
+        <div class="col-xs-8 col-sm-5">
+            {% if bundle.overview.image %}
+                <figure>
+                    <img role="presentation" src="{{ bundle.overview.image }}">
+                </figure>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row js-products">
+        <div class="col-xs-8 col-fix-sm-4">
+            {{ bundleProductToggleNav(bundle.items, 'product') }}
+            {{ bundleSidebarPricing(bundle.pricing.editions, bundle.i18n.pricing) }}
+        </div>
+        <div class="col-xs-8 col-fix-inv-sm-4">
+            {{ bundleProductToggleContent(
+                bundle.items,
+                'product',
+                bundle.i18n.viewProduct
+            ) }}
+        </div>
+    </div>
+
+    {{ watchDemoModal(bundle.i18n.demo) }}
+
+    <script src="{{ r('/assets/js/watch-demo.js') }}"></script>
+    <script>
+        $(".js-products").togglable("product", "bundledProduct");
+        $(".js-bundle-watch-demo").watchDemoFeature("#watch-demo-modal");
+    </script>
+{% endblock %}

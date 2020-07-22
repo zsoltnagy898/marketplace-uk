@@ -1,0 +1,14 @@
+{% macro watchDemoModal(demoLabel) %}
+    <div id="watch-demo-modal" class="modal modal-dialog modal__default" role="modal">
+        <h3 class="modal--header">
+            {{ demoLabel }}
+            <a class="close modal-dismiss" rel="modal:close"></a>
+        </h3>
+        <div class="modal--content modal-content">
+            <iframe 
+                width="100%" height="320px" frameborder="0" allowfullscreen="" 
+                src="about:blank"
+            ></iframe>
+        </div>
+    </div>
+{% endmacro %}

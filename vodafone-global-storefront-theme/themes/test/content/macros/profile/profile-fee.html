@@ -1,0 +1,21 @@
+{% macro profileFeeData(fees) %}
+    {% for fee in fees %}
+        <dt>{{ fee.unit.label }}</dt>
+        <dd>{{ fee.formattedPrice }}</dd>
+    {% endfor %}
+{% endmacro %}
+
+{% macro profileFee(setupFees, contractFees) %}
+    <li class="profile-checklist__item profile__edition-fees">
+        <span class="profile__edition-fees--content">
+            <dl class="profile__edition-fees--container">
+                {% if setupFees.length %}
+                    {{ profileFeeData(setupFees) }}
+                {% endif %}
+                {% if contractFees.length %}
+                    {{ profileFeeData(contractFees)}}
+                {% endif %}
+            </dl>
+        </span>
+    </li>
+{% endmacro %}

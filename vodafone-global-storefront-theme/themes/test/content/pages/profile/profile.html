@@ -1,0 +1,90 @@
+{% extends "/layout/profile.html" %}
+{% from "/macros/profile/features-and-benefits.html" import featuresAndBenefits %}
+{% from "/macros/profile/featured-customers.html" import featuredCustomers %}
+{% from "/macros/profile/profile-action-button.html" import productActionButton %}
+{% from "/macros/watch-demo.html" import watchDemoModal %}
+
+{% block data %}
+    <data type="application-additional-content" value="recommendations,relatedProducts,platforms,resellerProfiles">
+{% endblock %}
+
+{% block contentSection %}
+    <div class="js-profile-messages"></div>
+    {% set overviewActions = application.overview.callToActions %}
+    {% set mainActions = application.callToActions %}
+    {% set hasPrimaryAction = false %}
+    {% for action in mainActions.items %}
+        {% if action.isPrimary  %}
+            {% set hasPrimaryAction = true %}
+        {% endif %}
+    {% endfor  %}
+
+    <div class="row">
+        <div class="col-xs-8 col-sm-5 layout-content__column">
+            <h2 class="title__xxxxxlarge">{{ application.overview.title | safe }}</h2>
+            <p>{{ application.overview.description | safe }}</p>
+            <div class="toolbar">
+                {% if overviewActions.tour %}
+                    <a href="{{ overviewActions.tour.href }}" class="button button__large button__{{ overviewActions.tour.color }} toolbar--item">{{ overviewActions.tour.label }}</a>
+                {% endif %}
+                {% if overviewActions.demo %}
+                    <a class="button button__large button__{{ overviewActions.demo.color }} toolbar--item js-app-watch-demo" data-link="{{ overviewActions.demo.iFrameFriendlyUrl }}" aria-label="{{ overviewActions.demo.label }}">
+                        {{ overviewActions.demo.label }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-xs-8 col-sm-5">
+            {% if application.overview.image %}
+                <figure role="presentation">
+                    <img class="profile__image" src="{{ application.overview.image }}" alt="{{ application.overview.i18n.overviewImage }}">
+                </figure>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if application.overview.benefits.length %}
+        <div class="layout-content__section">
+            {{ featuresAndBenefits(application.overview.benefits, application.overview.i18n.featuresAndBenefits) }}
+        </div>
+    {% endif %}
+    {% if application.overview.customers.length %}
+        <div class="layout-content__section">
+            {{ featuredCustomers(application.overview.customers, application.overview.i18n.customers) }}
+        </div>
+    {% endif %}
+    {% if overviewActions.tour or hasPrimaryAction %}
+        <div class="feature-actions center">
+            {% for action in mainActions.items %}
+                {% if action.isPrimary  %}
+                    {% set profileOptions = {
+                        buttonSize: 'large',
+                        isAddToCartStyle: true
+                    } %}
+                    {{ productActionButton(action, profileOptions) }}
+                {% endif %}
+            {% endfor  %}
+            {% if overviewActions.tour %}
+                <a href="{{ overviewActions.tour.href }}" class="button button__large button__{{ overviewActions.tour.color }}">{{ overviewActions.tour.label }}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if overviewActions.demo %}
+        {{ watchDemoModal(application.overview.i18n.demo) }}
+        <script src="{{ r('/assets/js/watch-demo.js') }}"></script>
+        <script>
+            $(".js-app-watch-demo").watchDemoFeature("#watch-demo-modal");
+        </script>
+    {% endif %}
+
+    <script src="{{ r('/assets/js/profile-messages.js') }}"></script>
+    <script>
+        $(".js-profile-messages")
+            .profileMessages({
+                    actionMessages: '{{ application.actionMessages | dump | escape }}'
+                }
+            );
+    </script>
+
+{% endblock %}

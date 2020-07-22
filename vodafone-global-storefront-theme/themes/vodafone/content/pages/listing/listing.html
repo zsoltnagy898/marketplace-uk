@@ -1,0 +1,62 @@
+{% extends "/layout/base.html" %}
+{% from "/macros/listing/listing-navigator.html" import listingNavigator with context %}
+{% from "/macros/listing/listing-items.html" import listingItems with context %}
+{% from "/macros/breadcrumb/breadcrumb.html" import breadcrumb %}
+
+
+{% block data %}
+<data type="navigator"/>
+{% endblock %}
+
+{% block content %}
+
+{% set pageTitle = 'All Categories' %}
+{% if listingFilters.selectedFilters and listingFilters.selectedFilters[0] and listingFilters.selectedFilters[0].text %}
+{% set pageTitle = listingFilters.selectedFilters[0].text %}
+{% endif %}
+
+{{breadcrumb([{label: i18n.Home, link: '/'+ config.locale.code +'/home'}, {label: pageTitle}])}}
+<div class="container listing listing-page mt-3" data-sort='{{ listing.query.order }}'>
+    <div class="mb-3">
+        {{ listingNavigator(listingFilters, listingProducts, config.listingEndpoint, nav.primary.categories) }}
+    </div>
+
+    <script>
+        function setViewClass(view) {
+            if (view === "grid") {
+                document.querySelector(".listing-page").classList.add("listing-grid-list");
+                document.querySelector(".listing-page").classList.remove("listing-show-list");
+                document.querySelector(".grid-view-button").classList.add("active");
+                document.querySelector(".list-view-button").classList.remove("active");
+            } else {
+                document.querySelector(".listing-page").classList.add("listing-show-list");
+                document.querySelector(".listing-page").classList.remove("listing-grid-list");
+                document.querySelector(".list-view-button").classList.add("active");
+                document.querySelector(".grid-view-button").classList.remove("active");
+            }
+        }
+
+        function setView(type) {
+            sessionStorage.setItem("listingView", type);
+            setViewClass(type);
+        }
+
+        var view = sessionStorage.getItem("listingView");
+
+        setViewClass(view);
+    </script>
+
+    <div class="col-12 listing-items">
+        <div class="content">
+            {{ listingItems(listingProducts, listingFilters.selectedFilters) }}
+        </div>
+    </div>
+    <div class="listing-overlay is-hidden"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('.listing-page').listing({});
+</script>
+{% endblock %}

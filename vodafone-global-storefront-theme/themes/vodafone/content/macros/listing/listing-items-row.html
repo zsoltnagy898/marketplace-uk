@@ -1,0 +1,38 @@
+{% from "/macros/more/more.html" import more %}
+
+{% macro listingItemsRow(listing) %}
+<div class="listing-items-row">
+    {% for app in listing.items %}
+    <div data-id="{{ app.id }}" data-component="ListingRow"
+         class="col-12 d-flex align-items-center list-item-card">
+        <div class="col-2 pl-0 pr-0 d-flex align-items-center justify-content-center h-100">
+            <img aria-label="{{app.name}}" class="id--sliderimg" alt=""
+                 src="{{ app.profileLogoUrl }}">
+        </div>
+        <div class="col-8 h-100">
+            <h4 class="heading heading--4 heading--regular mt-0 mb-2 listing-title">{{app.name}}</h4>
+            <div class="body-text listing-description mb-2" title="{{app.description}}">
+                {{app.description}}
+            </div>
+            <div class="col-12 p-0">
+                {{more(app.url, listingProducts.i18n.learnMore)}}
+            </div>
+        </div>
+        <div class="col-2 pl-0 pr-0 h-100">
+            <div class="body-text heading--light listing-started-at">
+                {{listingProducts.i18n.startingAt}}
+            </div>
+            <div class="heading--bold heading--3 m-0 listing-formatted-price">
+                {{app.startingPrice.formattedPrice}}
+            </div>
+            <div class="body-text listing-frequency-label heading--light {{'invisible' if app.startingPrice.frequency.label.length === 0}}">
+                /{{app.startingPrice.frequency.label}}
+            </div>
+            <a href="{{app.url}}" role="button" class="button button--primary mt-2 w-100 max-width">
+                {{t(i18n.custom.listing.buy_now)}}
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endmacro %}

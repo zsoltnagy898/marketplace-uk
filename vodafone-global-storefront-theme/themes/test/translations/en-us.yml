@@ -1,0 +1,4 @@
+home:
+  welcome: Welcome
+home.startingat: Starting At {price}
+product.per.MONTHLY: per month

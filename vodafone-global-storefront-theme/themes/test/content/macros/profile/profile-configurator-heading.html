@@ -1,0 +1,98 @@
+{% from "/macros/profile/profile-configurator-heading-edition-preview.html" import editionPreview %}
+{% from "/macros/profile/profile-configurator-addons-preview.html" import addonsPreview %}
+{% from "/macros/profile/profile-action-button.html" import productActionButton %}
+
+{% macro profileConfigurator(app) %}
+{% set summary = app.summary %}
+{% set actions = app.callToActions %}
+{% set configurator = app.configurator %}
+{% set config = app.config %}
+    {{ configureHeader(summary, configurator, actions) }}
+    {{ configureMobileFooter(summary, configurator, actions) }}
+{% endmacro %}
+
+{% macro configureHeader(summary, configurator, actions) %}
+    <div class="profile_header d-xs-block d-none js-configure-summary">
+        <div class="profile_header--content profile_header--configure">
+            <div class="layout-default">
+                <div class="container relative clearfix">
+                    <div class="selection_preview-wrapper">
+                        <div class="back_action--wrapper">
+                            <a class="back_action" href="{{ configurator.backAction.url }}">
+                                <span class="back_action--label">{{ configurator.backAction.label }}</span>
+                            </a>
+                        </div>
+                        {{ editionPreview(summary, configurator, actions, false) }}
+                    </div>
+                    <div class="selected-addons">
+                        {{ addonsPreview(configurator.selectedAddons, configurator.i18n) }}
+                    </div>
+                    <div class="expand--header">
+                        <div class="expand--anchor">
+                            <span class="expand__action">
+                                <span class="expand__label">
+                                    <span>+</span>
+                                    <span class="expand--number">{{ configurator.selectedAddons.length - 1 }}</span>
+                                    <span>{{ configurator.i18n.more }}</span>
+                                </span>
+                                <span class="expand__label--expanded">{{ configurator.i18n.hide }}</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro configureMobileFooter(summary, configurator, actions) %}
+    <div class="header_margin d-xs-none d-block"></div>
+    <div class="profile_footer d-xs-none d-block js-configure-summary">
+        <div class="profile_footer--content">
+            <div class="footer_close">
+                <div class="footer_close--anchor">
+                    <span class="close footer_close__label js-toggle-footer">{{ configurator.i18n.cancel }}</span>
+                </div>
+            </div>
+            <h3 class="selected-products__title">{{ configurator.i18n.selectedProducts }}</h3>
+            <div class="layout-default profile_footer--spacing">
+                <div class="container clearfix profile_footer--padding">
+                    <div class="selection_preview-wrapper">
+                        <div class="back_action--wrapper">
+                            <a class="back_action" href="{{ configurator.backAction.url }}">
+                                <span class="back_action--label">{{ configurator.backAction.label }}</span>
+                            </a>
+                        </div>
+                        {{ editionPreview(summary, configurator, actions, true) }}
+                    </div>
+                    <div class="selected-addons">
+                        {{ addonsPreview(configurator.selectedAddons, configurator.i18n) }}
+                    </div>
+                    <div class="expand">
+                        <span class="expand__label js-toggle-footer">
+                            <span>+</span>
+                            <span class="expand--number">{{ configurator.selectedAddons.length - 1 }}</span>
+                            <span>{{ configurator.i18n.more }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="selection-preview__button-list--footer">
+                {% set CTAOptions = {
+                    buttonSize: 'large',
+                    isAddToCartStyle: true
+                } %}
+                {% for action in actions.items %}
+                    <div class="configurator--button"
+                        data-base="{{action.urlCreator.base}}"
+                        data-action-type="{{action.urlCreator.actionType}}"
+                        data-edition-param="{{action.urlCreator.editionParam}}"
+                        data-addon-param="{{action.urlCreator.addonParam}}"
+                    >
+                        {{ productActionButton(action, CTAOptions) }}
+                    </div>
+                {% endfor  %}
+            </div>
+        </div>
+    </div>
+{% endmacro %}

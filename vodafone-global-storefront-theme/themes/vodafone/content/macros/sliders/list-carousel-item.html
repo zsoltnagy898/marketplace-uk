@@ -1,0 +1,21 @@
+{% from "/macros/more/more.html" import more %}
+
+{% macro listCarouselItem(product, mobile, next) %}
+<div class="list-carousel-item" style="{{'width: 90%;' if mobile}}{{'display: none;' if next}}">
+    <div class="col-12 p-0 d-flex flex-wrap title-container">
+        <div class="col-4 pl-1 pr-1">
+            <img aria-label="{{product.name}}" class="id--sliderimg" alt=""
+                 src="{{ product.iconUrl }}">
+        </div>
+        <div class="col-8 d-flex align-items-center">
+            <h4 class="carousel-item-title heading heading--4 heading--regular mt-0 mb-0">{{product.name}}</h4>
+        </div>
+    </div>
+    <div class="col-12 p-0">
+        <div class="carousel-item-description body-text" title="{{product.description}}">{{product.description}}</div>
+    </div>
+    <div class="col-12 p-0 more-text-container text-right">
+        {{more(product.url)}}
+    </div>
+</div>
+{% endmacro %}

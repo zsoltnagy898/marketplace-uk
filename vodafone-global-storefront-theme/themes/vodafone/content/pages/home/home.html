@@ -1,0 +1,99 @@
+{% extends "/layout/base.html" %}
+
+{% from "/macros/analytics.html" import utagDataScript %}
+
+{% from "/macros/sliders/carousel.html" import carousel with context %}
+{% from "/macros/sliders/bundle.html" import bundleSlider %}
+{% from "/macros/sliders/hero.html" import hero %}
+{% from "/macros/navigator.html" import navigator %}
+{% from "/macros/home-faq.html" import homeFaq %}
+{% from "/macros/sliders/script.html" import sliderScript %}
+{% from "/macros/profile/profile-product-heading.html" import productHeadCard %}
+{% from "/macros/profile/profile-product-pricing.html" import productSidebarPricing %}
+{% from "/macros/profile/profile-product-tags.html" import productSidebarTags %}
+{% from "/macros/profile/profile-product-section.html" import productSidebarSection %}
+{% from "/macros/profile/profile-product-sidebar-top.html" import productSidebarTopSection %}
+{% from "/macros/profile/profile-screenshot.html" import productScreenshotModal %}
+{% from "/macros/sliders/script.html" import sliderScript %}
+{% from "/macros/notification.html" import notificationModel %}
+
+
+{% from "/pages/home/components/carousel-list.html" import carouselList %}
+{% from "/pages/home/components/recommended-solutions.html" import recommendedSolutions with context %}
+{% from "/pages/home/components/why-vodafone.html" import whyVodafone with context %}
+{% from "/pages/home/components/actions.html" import actions %}
+
+
+{% block dataPage %}profile{% endblock %}
+{% block mainRegionClass %}profile-region{% endblock %}
+
+{% block headContent %}
+{{ productHeadCard(application.summary, application.categories, application.navigation) }}
+{% endblock %}
+
+{% block data %}
+<data type="navigator"/>
+<data name="recommendedSolutions"/>
+<data name="carousel"/>
+<data name="popularapps"/>
+<data name="collaboration"/>
+{% endblock %}
+
+
+{% block content %}
+
+{% set featuredPartners = {name: t(i18n.custom.home.featured_partners) ,items:[ '/assets/images/microsoft-logo.png']} %}
+
+
+<div id="home">
+    <section class="section section--white">
+        <img src="{{r('/assets/images/banner-2.png')}}" class="section-bg"/>
+        {{ carousel('hero', productLists.customLists.carousel, productLists.customLists.carousel.products) }}
+    </section>
+    <section class="section section--white">
+        <div class="d-block d-lg-none">
+            {{ carousel('popularAppsMobile', productLists.popularapps,
+                productLists.popularapps.items, 'list', true, false, true, 'mobile', 1, false, false,
+            t(i18n.custom.home.popular_apps)) }}
+        </div>
+        <div class="d-none d-lg-block">
+            {{ carousel('popularAppsDesktop', productLists.popularapps,
+            productLists.popularapps.items, 'list', true, false, true, 'desktop', 3,false, false,
+            t(i18n.custom.home.popular_apps)) }}
+        </div>
+    </section>
+    <section class="section section--gallery gutter__large--y">
+        {{ recommendedSolutions(productLists.customLists.recommendedSolutions,
+        productLists.customLists.recommendedSolutions.products) }}
+    </section>
+    <section class="section gutter__large--y">
+        {{ whyVodafone() }}
+    </section>
+    <section class="section section--light-grey">
+        <div class="d-block d-lg-none">
+            {{ carousel('featuredPartnersMobile', featuredPartners, featuredPartners.items, 'logo', true, false, false,
+            'mobile', 1, true, true)
+            }}
+        </div>
+        <div class="d-none d-lg-block">
+            {{ carousel('featuredPartnersDesktop', featuredPartners, featuredPartners.items, 'logo', true, false, false,
+            'desktop', 1, true, true) }}
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var appDescription = document.getElementsByClassName('card-text');
+    console.log(appDescription);
+    $('.carousel-inner .carousel-item:first').addClass('active');
+</script>
+{% endblock %}
+
+{{ sliderScript() }}
+
+
+{% block analytics_data %}
+{{ utagDataScript({ page_name: 'uk:business:app direct' }) }}
+{% endblock %}

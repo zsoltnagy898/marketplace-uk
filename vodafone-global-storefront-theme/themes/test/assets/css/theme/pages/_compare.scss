@@ -1,0 +1,42 @@
+// ie11 fix
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
+    .compare__row {
+        display: table-row!important;
+    }
+    .compare__cell {
+        width: 30%;
+    }
+}
+
+@include media-breakpoint-down(xs) {
+    .compare-mobile-scroll {
+        overflow: auto;
+        border-right: 1px solid #cbcbcb;
+        border-left: 1px solid #cbcbcb;
+        &:after {
+            display: block;
+            content: " ";
+            top: 0;
+            position: absolute;
+            height: 100%;
+            right: 1px;
+            width: 40px;
+        }
+    }
+    .compare__block {
+        border-right: none;
+        border-left: none;
+    }
+    .compare__heading {
+        min-width: 150px;
+    }
+    .compare__cell {
+        min-width: 230px;
+    }
+}
+
+@include media-breakpoint-down(xm) {
+    .compare__heading {
+        min-width: 109px;
+    }
+}

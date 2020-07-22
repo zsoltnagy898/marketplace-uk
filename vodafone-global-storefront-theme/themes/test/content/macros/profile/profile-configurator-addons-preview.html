@@ -1,0 +1,31 @@
+{% from "/macros/profile/profile-cost.html" import profileFormattedPeriod %}
+{% from "/macros/profile/profile-configurator-heading-edition-preview.html" import profileConfiguratorPrice %}
+{% from "/macros/profile-icons.html" import addonIcon %}
+
+{% macro addonsPreview(selectedAddonsUniqueItems, i18n) %}
+    <div class="selection_preview--wrapper {{ 'selection_preview--active' if selectedAddonsUniqueItems|length }}">
+        <div class="preview-wrapper">
+            <div class="selected-addon--wrapper">
+                <div class="selected-addon--title">{{ i18n.selectedAddons }}</div>
+                <div class="js-selected-addons">
+                {% for addon in selectedAddonsUniqueItems %}
+                    {{ addonPreviewRow(addon, i18n) }}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro addonPreviewRow(addon, i18n) %}
+    <div class="selected-addon--content js-addon-row" data-addon-id="{{ addon.edition[0].id }}">
+        <div class="selected-addon--selection">
+            <div class="selected-addon--overview">
+                <div class="card__image">
+                    {{ addonIcon() }}
+                </div>
+                <div class="title">{{ addon.name }}</div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

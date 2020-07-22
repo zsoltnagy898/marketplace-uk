@@ -1,0 +1,94 @@
+.profile-tooltip-checklist {
+    padding-left: 24px;
+    &--flush {
+        padding-left: 0;
+    }
+    &__item {
+        position: relative;
+        margin-bottom: 6px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        &:before {
+            font-family: AppDirectIcons;
+            text-align: center;
+            display: inline-block;
+            width: 24px;
+            content: " ";
+            position: absolute;
+            left: -24px;
+        }
+        &--checked:before {
+            color: #6aaa1f;
+            content: "\e003"
+        }
+    }
+}
+
+.tooltip {
+    position: relative;
+    max-width: 350px;
+    &__text {
+        width: auto;
+        white-space: nowrap;
+        font-size: 12px;
+        visibility: hidden;
+        background-color: #2d2d2d;
+        color: #fff;
+        text-align: center;
+        padding: 4px 8px;
+        border-radius: 3px;
+        line-height: 1.6em;
+        opacity: 0;
+        transition: opacity .15s;
+        text-shadow: none;
+    
+        position: absolute;
+        //Z-index of 12 because universal header has a z-index of 11
+        z-index: 12;
+        left: 50%;
+    
+        &--bottom {
+            top: 150%;
+        }
+    
+        &--top {
+            bottom: 150%;
+        }
+
+        &--bottom::after {
+            content: "";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent #2d2d2d transparent;
+        }
+    
+        &--top::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #2d2d2d transparent transparent transparent;
+        }
+    }
+}
+
+.tooltip:hover .tooltip__text {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tooltip .tooltip__text:hover {
+    visibility: hidden;
+}
+
+.profile-tooltip-checklist__item .tooltip{
+    display: inline-block;
+}

@@ -1,0 +1,52 @@
+{% extends "/layout/profile.html" %}
+{% from "/macros/profile/profile-configure.html" import configureContent %}
+{% from "/macros/profile/configure/profile-configurator-addons-product.html" import configuratorAddonProductsContent %}
+{% from "/macros/profile/profile-configurator-heading.html" import profileConfigurator %}
+{% from "/macros/profile/profile-configurator-heading-edition-preview.html" import editionPreviewRow %}
+{% from "/macros/profile/profile-configurator-addons-preview.html" import addonPreviewRow %}
+{% set shouldRenderLabel = query.editionId.length or query.action === "browseAddons" %}
+
+{% block data %}
+    <data type="application-additional-content" value="addonProducts">
+{% endblock %}
+
+{% block headContent %}
+    {{ profileConfigurator(application) }}
+{% endblock %}
+
+{% block profileContent %}
+    <div class="js-main-configurator configurator__container">
+        {% if application.editions.items.length %}
+            <div class="js-main-editions">
+                {{ configureContent(application.editions, application.configurator, config.query) }}
+            </div>
+        {% endif %}
+        {% if application.addonProducts.items.length %}
+            {{ configuratorAddonProductsContent(application.addonProducts, application.configurator.selectedEdition, application.configurator.i18n) }}
+        {% endif %}
+    </div>
+    <script src="{{ r('/assets/js/profile-editions.js') }}"></script>
+    <script src="{{ r('/assets/js/profile-configure.js') }}"></script>
+    <script>
+        $(".configurator-editions-toggle").showEditions("{{ shouldRenderLabel }}");
+        $(".js-main-configurator").configureProduct("{{ application.config.id }}", "{{ application.configurator.selectedEdition.id }}");
+        $(".js-editions").editionSizing("edition:resize");
+        $(".js-edition-bullets").editionBulletsToggle();
+        $(".js-editions").editionDetailsToggle();
+        $(".profile-edition").addSliderOnMobile();
+        $(".js-configure-summary").toggleConfigureSummary();
+        $(".js-configure-summary").toggleMobileSummary();
+    </script>
+    {% for edition in application.editions.items %}
+        <div class="js-preview-editions-content hidden" data-edition-preview-template="{{ edition.id }}">  
+            {{ editionPreviewRow(application.summary, application.configurator, edition)  }}
+        </div>
+    {% endfor %}        
+    {% for addon in application.addonProducts.items %}
+        {% for edition in addon.edition %}
+            <div class="js-preview-addon-content hidden" data-addon-preview-template="{{ edition.id }}" data-edition-parentId="{{ addon.parentEditionId }}">  
+                {{ addonPreviewRow(addon)  }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

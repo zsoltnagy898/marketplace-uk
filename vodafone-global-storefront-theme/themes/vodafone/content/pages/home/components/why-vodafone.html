@@ -1,0 +1,35 @@
+{% macro whyVodafone() %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3 class="heading heading--3 heading--center heading--leading">
+                {{t(i18n.custom.home.why_buy_business_apps_from_vodafone)}}
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg col-12 text-center pb-5 pb-lg-0 d-flex flex-column align-items-center">
+            <img src="{{ r('/assets/images/business-hi.png') }}" alt="business" class="why-vodafone-image mb-3">
+
+            <div class="body-text why-vodafone-text">
+                {{t(i18n.custom.home.why_vodafone.section_1)}}
+            </div>
+        </div>
+        <div class="col col-lg col-12 text-center pb-5 pb-lg-0 px-lg-3 d-flex flex-column align-items-center">
+            <img src="{{ r('/assets/images/bill-hi.png') }}" alt="contract" class="why-vodafone-image mb-3">
+
+            <div class="body-text why-vodafone-text">
+                {{t(i18n.custom.home.why_vodafone.section_2)}}
+            </div>
+        </div>
+        <div class="col col-lg col-12 text-center d-flex flex-column align-items-center">
+            <img src="{{ r('/assets/images/parental-control-hi.png') }}" alt="security" class="why-vodafone-image mb-3">
+
+            <div class="body-text why-vodafone-text">
+                {{t(i18n.custom.home.why_vodafone.section_3)}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}

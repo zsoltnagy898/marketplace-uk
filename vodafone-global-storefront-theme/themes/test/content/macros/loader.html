@@ -1,0 +1,17 @@
+{% macro loader(size) %}
+    <span class="loader loader--{{ size }}"><span class="loader__text"></span></span>
+{% endmacro %}
+
+{% macro loadingOverlay(className, child) %}
+    <span class="loading-overlay is-hidden {{ className }}">{{ child }}</span>
+{% endmacro %}
+
+{% macro loaderSmall() %}
+    {{ loader('small') }}
+{% endmacro %}
+{% macro loaderMedium() %}
+    {{ loader('medium') }}
+{% endmacro %}
+{% macro loaderLarge() %}
+    {{ loader('large') }}
+{% endmacro %}

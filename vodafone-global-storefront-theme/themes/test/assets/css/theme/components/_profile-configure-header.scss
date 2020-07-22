@@ -1,0 +1,200 @@
+.back_action {
+    text-decoration: none;
+    &--wrapper {
+        margin-bottom: 16px;
+    }
+    &--label {
+        color: #fff;
+        margin-left: 36px;
+        &:before {
+            font-family: AppDirectIcons;
+            color: #009ddb;
+            content: "\e02d";
+            font-size: 17px;
+            position: absolute;
+            left: 0;
+            text-align: center;
+            width: 19px;
+        }
+    }
+}
+
+.selected-edition,
+.selected-addon {
+    &--wrapper {
+        @include media-breakpoint-up(sm) {
+            width: 73%;
+            min-width: 635px;
+        }
+        margin: 0 auto 4px auto;
+        color: #fff;
+        & .title {
+            font: 18px/1.2em Helvetica Neue,Helvetica,Arial,sans-serif;
+        }
+        & .card__image {
+            width: 58px;
+            fill: #fff;
+        }
+        & .profile-edition__price {
+            &:first-child .edition__price--primary-amount {
+                font-size: 24px;
+            }
+        }
+    }
+    &--title {
+        margin-bottom: 16px;
+        color: #CBCBCB;
+        font: 12px/1.2em Helvetica Neue,Helvetica,Arial,sans-serif;
+    }
+    &--content {
+        display: flex;
+    }
+    &--selection {
+        margin-bottom: 6px;
+        width: 76%;
+        display: flex;
+        align-content: flex-start;
+        justify-content: space-between;
+    }
+    &--overview {
+        flex-grow: 1;
+    }
+    &--price {
+        width: 190px;
+    }
+}
+
+.selected-edition {
+    &--wrapper {
+        margin-bottom: 12px;
+    }
+}
+
+.selected-addon {
+    &--content {
+        display: none;
+        &:first-child {
+            display: flex;
+        }
+    }
+}
+
+.expand {
+    &--header {
+        width: 73%;
+        min-width: 635px;
+        margin: 0 auto;
+    }
+    &--anchor {
+        margin-left: 19px;
+        position: relative;
+        color: #009ddb;
+        &:before {
+            font-family: AppDirectIcons;
+            color: #009ddb;
+            content: "\e610";
+            font-size: 17px;
+            position: absolute;
+            left: -23px;
+            text-align: center;
+            width: 19px;
+        }
+    }
+    &__action {
+        cursor: pointer;
+    }
+}
+
+.profile_header {
+    &.is-fixed {
+        .back_action {
+            &--wrapper {
+                display: none;
+            }
+        }
+        .selected-edition,
+        .selected-addon {
+            &--title,
+            &--price {
+                display: none;
+            }
+        }
+    }
+    &--content {
+        &--expanded {
+            .selected-addon {
+                &--wrapper {
+                    .selected-addon {
+                        &--content {
+                            display: flex;
+                        }
+                    }
+                }
+            }
+            .expand {
+                &--anchor {
+                    &:before {
+                        font-family: AppDirectIcons;
+                        color: #009ddb;
+                        content: "\e60f";
+                        font-size: 17px;
+                        position: absolute;
+                        left: -23px;
+                        text-align: center;
+                        width: 19px;
+                    }
+                }
+                &__label {
+                    display: none;
+                    &--expanded {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.expand {
+    &__label {
+        display: inline-block;
+        &--expanded {
+            display: none;
+        }
+    }
+}
+
+.price-wrapper {
+    display: flex;
+    flex-direction: column;
+    &--value {
+        font: 30px/1.2em Helvetica Neue,Helvetica,Arial,sans-serif;
+        font-weight: 700;
+    }
+    &--starting-at {
+        color: #CBCBCB;
+    }
+    & .edition__limits {
+        display: none;
+    }
+    @include media-breakpoint-down(xs) {
+        display: none;
+    }
+}
+
+.selection-preview {
+    &__button-list {
+        width: 24%;
+        max-height: 58px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+.configurator--button {
+    margin-bottom: 12px;
+    & .button {
+        width: 192px;
+    }
+}

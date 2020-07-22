@@ -1,0 +1,149 @@
+{% extends "/layout/profile.html" %}
+
+{% from "/macros/rating.html" import rating %}
+{% from "/macros/profile/profile-questions.html" import confirmationModal, addQuestionModal, editQuestion, commentForm %}
+{% from "/macros/profile-image.html" import userImageMedium %}
+
+{% set localI18n = application.questions.i18n %}
+{% set questions = application.questions.items %}
+{% set user = config.user %}
+
+{% block data %}
+    <data type="application-additional-content" value="recommendations,questions">
+{% endblock %}
+
+{% block contentSection %}
+    <div class="js-profile-questions">
+        <div class="feature-actions profile-post--container">
+            <div class="feature-actions-text">
+                <h3>
+                    {% if questions.length %}
+                        {{ localI18n.headers.whatWouldYou }}
+                    {% else %}
+                        {{ localI18n.headers.noQuestion }}
+                    {% endif %}
+                </h3>
+            </div>
+            <div class="feature-actions-button">
+                {% if user.isLoggedIn %}
+                    <button type="button" class="button button__primary js-profile-post-entry" aria-label="{{ localI18n.labels.askQuestion }}">
+                        {{ localI18n.labels.askQuestion }}
+                    </button>
+                {% else %}
+                    <button type="button" onclick="window.location= '/login?redirectUrl='+window.location.href " class="button button__primary" aria-label="{{ localI18n.labels.signUp }}">
+                        {{ localI18n.labels.signUp }}
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="js-notification"></div>
+
+        {% if questions.length %}
+            <div id="customer-entries-container">
+                <h2 class="js-nbEntries">{{ localI18n.headers.nbQuestions }}</h2>
+
+                <div class="slat-container js-entry-container">
+                    <div class="filters grid-header" data-filters="">
+                        <menu class="filters--header filters-header">
+                            <div class="filters--header_item search-container container_header--item__last">
+                                <div class="search_field input_row input_row__search">
+                                    <div class="input_row--item input_row--primary">
+                                        <input aria-label="{{ localI18n.labels.search }}" class="input_row--item_content search_field--input text__small js-input-search-entry" placeholder="{{ localI18n.labels.search }}" type="search">
+                                    </div>
+                                    <div class="input_row--item js-search-button-container">
+                                        <button class="input_row--item_content search_field--button button button__small js-submit-entry" type="button" aria-label="{{ localI18n.labels.submit }}">
+                                            <i class="icon__search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </menu>
+                    </div>
+                    <ul class="list profile-entries">
+                    {% for question in questions %}
+                        <li class="slat js-slat" data-entry-id="{{ question.id }}" data-endpoint="{{ question.actionEndpoints.entry }}" data-comments-endpoint="{{ question.actionEndpoints.comments }}">
+                            <div class="slat--image slat--column">
+                                {{ userImageMedium(question.author.profilePicUrl) }}
+                            </div>
+                            <div class="slat--content slat--column">
+                                <h3 class="entry-title">{{ question.title }}</h3>
+                                <p class="entry-comment">{{ question.comment }}</p>
+                                <p class="subtitle">{{ question.byDate }}</p>
+                                <p class="caption">
+                                    {% if question.answerCount %}
+                                        <a class="js-comment-hide is-hidden caption-element">{{ question.i18n.hideAnswer }}</a>
+                                        <a class="js-comment-show caption-element">{{ question.i18n.showAnswer }}</a>
+                                    {% endif %}
+                                    {% if user.isLoggedIn %}
+                                        <a class="js-menu-reply caption-element">{{ localI18n.labels.answer }}</a>
+                                    {% endif %}
+                                    {% if question.isCurrentUserQuestion %}
+                                        <a class="js-menu-edit caption-element">{{ localI18n.labels.edit }}</a>
+                                    {% endif %}
+                                    {% if question.isCurrentUserQuestion and not question.answerCount %}
+                                        <a class="js-menu-delete caption-element">{{ localI18n.labels.delete }}</a>
+                                    {% endif %}
+                                </p>
+                                {{ editQuestion(localI18n, question.title, question.comment) }}
+                                {{ commentForm(localI18n) }}
+                                <div class="comments js-comments is-hidden">
+                                {% for comment in question.answers %}
+                                    <div data-component="threaded-comment" class="slat slat__indented" data-comment-id="{{ comment.id }}" data-endpoint="{{ comment.actionEndpoint }}">
+                                        <div class="slat--column">
+                                            <div class="slat--image">
+                                                {{ userImageMedium(comment.author.profilePicUrl) }}
+                                            </div>
+                                        </div>
+                                        <div class="slat--content slat--column">
+                                            {% if comment.official %}
+                                                <h3>
+                                                    <div class="badges">
+                                                        <span class="badge badge--emphasis">
+                                                            {{ localI18n.labels.developerAnswer }}
+                                                        </span>
+                                                    </div>
+                                                </h3>
+                                            {% endif %}
+                                            <p>{{ comment.comment }}</p>
+                                            <p class="subtitle">{{ comment.i18n.byDate }}</p>
+                                            {% if comment.isCurrentUserAnswer %}
+                                                <p class="caption js-menu-container">
+                                                    <a class="js-menu-delete-comment">{{ localI18n.labels.delete }}</a>
+                                                </p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    <div class="container_footer">
+                        <div class="container_footer--item count-container">
+                            <span class="subtitle js-nbResults">{{ localI18n.labels.resultsStr }}</span>
+                        </div>
+                        {% if questions.length >= 7 %}
+                            <div class="container_footer--item__last pager-container js-pager">
+                                <ul class="pagination pagination--numbers"></ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    {{ confirmationModal("delete-entry-confirmation", localI18n.labels.confirm, localI18n.messages.confirm.deleteEntry, localI18n) }}
+    {{ confirmationModal("delete-comment-confirmation", localI18n.labels.confirm, localI18n.messages.confirm.deleteComment, localI18n) }}
+    {{ addQuestionModal(localI18n) }}
+
+    <script src="{{ r('/assets/js/profile-multi-entry.js') }}"></script>
+    <script>
+        $(".js-profile-questions")
+            .profileEntries({
+                    endpoint: "{{ application.questions.actionEndpoint }}",
+                    i18n: '{{ localI18n | dump | escape }}'
+                }
+            );
+    </script>
+{% endblock %}

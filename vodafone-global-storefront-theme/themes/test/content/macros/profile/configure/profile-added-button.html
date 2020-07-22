@@ -1,0 +1,15 @@
+{% macro productAddButton(actionData, labelData, editionId, options) %}
+    <a 
+        class=" button
+        {{ 'js-select-addon' if editionId}}
+        {{ 'toggle-select' if editionId}}
+        {{ 'button__full_width' if options.isFullWidth}}
+        {{ 'is-disabled' if actionData.enabled}} 
+        button__primary
+        button__profile" 
+        aria-label="{{ labelData.addToOrder }}"
+    >
+        <span class="addon-select">{{ labelData.addToOrder }}</span>
+        <span class="addon-selected">{{ labelData.added }}</span>
+    </a>
+{% endmacro %}

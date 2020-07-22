@@ -1,0 +1,46 @@
+{% extends "/layout/base.html" %}
+
+{% block content %}
+    {% set minItems = 1 %}
+    <h1 class="row--spaced">{{ i18n.frequentlyAskedQuestions }}</h1>
+    <div class="row js-faqs">
+        {% if faqGroups.items.length > minItems %}
+            <div class="col-xs-8 col-fix-sm-4 d-none d-sm-block">
+                <ul class="stack">
+                    {% for entry in faqGroups.items %}
+                        <li class="stack--item">
+                            <a
+                                class="link__nav stack--item_content js-faq-toggle{{ ' selected' if loop.index === 1 }}"
+                                data-id="{{ loop.index }}"
+                            >
+                                <span>{{ entry.name | safe }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <div class="col-xs-8{% if faqGroups.items.length > minItems %} col-fix-inv-sm-4{% endif %}">
+            {% for entry in faqGroups.items %}
+                <div
+                    class="container_content--toggled toggled__section js-faq-content{{ ' selected' if loop.index === 1 }}"
+                    data-id="{{ loop.index }}"
+                >
+                    {% if entry.name %}
+                        <h2 class="toggled__title">{{ entry.name | safe }}</h2>
+                    {% endif %}
+                    {% for faq in entry.faqs %}
+                        <div class="toggled__content">
+                            <h3>{{ faq.question | safe }}</h3>
+                            <p>{{ faq.answer | safe }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        $(".js-faqs").togglable("faq", "faqSelected");
+    </script>
+{% endblock %}

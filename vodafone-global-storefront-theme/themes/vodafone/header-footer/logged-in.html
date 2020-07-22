@@ -1,0 +1,222 @@
+<header id="ad-universalnav">
+    <div class="ad-uniheader ad-uniheader--logged-out">
+        <nav class="header" data-js="_language">
+            <div class="js-navigation-language navigation primary-navigation d-none d-lg-block">
+                <div class="container h-100">
+                    <ul class="navigation__list navigation__global navigation__hide no-gutter--all h-100">
+                        <li class="navigation__spring h-100">
+                            <ul class="js-navigation navigation navigation__list navigation__global--language navigation__list__inline h-100">
+                                <li class="js-navigation-item navigation__item navigation__item--right h-100 d-flex align-items-center">
+                                    <div class="js-language language">
+                                        <a href="#" class="js-language-current language__current"
+                                           onclick="VodafoneHeader.toggleLanguageChooser()">
+                                            <span class="visually-hidden">menu</span>
+                                            <span class="js-language-chosen language__chosen">
+                                        {{CURRENT_LANGUAGE}}
+                                    </span>
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img605694542295108090?45603fdff4ab1facf8a57816c77838d6"
+                                                 alt="Down"
+                                                 class="icon-image icon-image--small js-icon-down language__icon language__icon--down open">
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img605694542295108090?45603fdff4ab1facf8a57816c77838d6"
+                                                 alt="Up"
+                                                 class="icon-image icon-image--small js-icon-up language__icon language__icon--up">
+
+                                        </a>
+                                        <div class="js-language-options js-options language__options">
+                                            {{LANGUAGE_LINKS}}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="h-100">
+                                    <div class="help">
+                                        <a href="https://www.vodafone.de/business/hilfe-support.html"
+                                           target="_blank">
+                                            {{home.help}}
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img3416899972600614046?5d2357f4ae50e2bfa18d642179c5d8d6"
+                                                 alt="Help"
+                                                 class="icon-image icon-image--small navigation__icon">
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="js-navigation navigation navigation--primary component__icon-background" id="fixed-header"
+                 data-js="_navigation">
+                <div class="container">
+                    <ul class="navigation__list navigation__hide d-flex" role="navigation">
+                        <li class="navigation__item d-flex">
+                            <a href="{{HOME_HREF}}" class="js-brand brand">
+                                <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img6278299006697370250?14da8e1c14f048a3837a600ba841fd5a"
+                                     alt="Vodafone" class="brand__logo">
+                            </a>
+                        </li>
+
+                        <li class="js-navigation-item navigation__item navigation__item--right navigation__hide ml-md-auto navigation__item--search">
+                            <form class="search-container" id="header-search-container"
+                                  novalidate
+                                  data-base-url="/{{CURRENT_LANGUAGE_TAG}}/listing"
+                                  onsubmit="return VodafoneHeader.submitSearch()">
+                                <div class="search-input-container">
+                                    <input class="search-input" placeholder="{{searchBar.placeholder}}" type="search"
+                                           name="q"/>
+                                    <span class="search-close-icon"
+                                          onclick="VodafoneHeader.toggleSearchFieldVisibility()">
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img5759350926535388911?1145eae3bf858b824a9ae005af40aeaf"
+                                                 alt="Close"
+                                                 class="icon-image">
+                                    </span>
+                                </div>
+                                <div class="search-icon-container" onclick="VodafoneHeader.onSearchIconClick()">
+                                    <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img9117908101071951894?3fb8b017f2debcf01e8fa7f6b9746932"
+                                         alt="Search"
+                                         class="icon-image icon-image--small search-closed-icon">
+                                    <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img8123427286832152427?1c192fe915d1261eb62b4999ee50a6ca"
+                                         alt="Search"
+                                         class="icon-image icon-image--small search-open-icon">
+                                    <span class="navigation__icon-text navigation-search-text d-none d-lg-block">
+                                {{home.search}}
+                            </span>
+                                </div>
+                            </form>
+                        </li>
+                        <ul class="navigation__list navigation__hide d-none d-lg-flex company-manage-list company-manage-list-desktop">
+                            {{COMPANY_DROPDOWN}}
+                            {{MANAGE_DROPDOWN}}
+                        </ul>
+                        <li class="js-navigation-item navigation__item navigation__item--right navigation__hide d-none d-lg-block">
+                            <div class="js-profile">
+                                <a href="#"
+                                   class="js-profile-current js-navigation-link navigation__link navigation__link--icon"
+                                   onclick="VodafoneHeader.toggleProfileMenu()">
+                                    <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img605305839428441563?50c489f6d98b2814084f9c1587f72e2a"
+                                         alt="User"
+                                         class="icon-image icon-image--small">
+                                    <span class="navigation__icon-text">{{USER_NAME}}</span>
+                                </a>
+                                <div class="js-profile-options js-options profile__options">
+                                    <ul class="ad-component_list ad-component_list--manage-list manage-links">
+                                        <li class="ad-component_list-item ad-component_list-item--developer">
+                                            {{MYAPPS_LINK}}
+                                        </li>
+                                    </ul>
+                                    {{USER_LIST}}
+                                </div>
+                            </div>
+                        </li>
+                        <li class="js-navigation-item navigation__item navigation__item--right navigation__hide d-none d-lg-block">
+                            <a href="https://ayudacliente.vodafone.es/empresas/contacta/" target="_blank"
+                               class="js-navigation-link navigation__link navigation__link--icon navigation__link--icon--last">
+                                <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img3294774245888478304?057c5ab6d493b417628abb691565fcef"
+                                     alt="Contact Us" class="icon-image icon-image--small">
+                                <span class="navigation__icon-text">{{home.contact_us}}</span>
+                            </a>
+                        </li>
+                        <li class="js-navigation-item navigation__item navigation__item--right navigation__hide js-navigation-item-clickable navigation__item--clickable d-lg-none">
+                            <a href="#"
+                               class="js-navigation-link navigation__link navigation__link--icon navigation__link--icon-last navigation__link--menu"
+                               onclick="VodafoneHeader.navToggle()">
+                        <span class="visually-hidden">
+                          <span class="navigation__accessibility">Close</span>
+                            Menu
+                        </span>
+                                <div class="icon-image--small-container navigation__icon js-navigation-toggle navigation__toggle">
+                                    <div class="h-100 d-flex align-items-center justify-content-center">
+                                        <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img3275379635331731963?16979422cc2d07184639a467a1f59002"
+                                             alt="Menu"
+                                             class="icon-image navigation__icon">
+
+                                    </div>
+                                </div>
+                                <div class="icon-image--small-container navigation__icon js-navigation-close navigation__close">
+                                    <div class="h-100 d-flex align-items-center justify-content-center">
+                                        <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img5759350926535388911?1145eae3bf858b824a9ae005af40aeaf"
+                                             alt="Close"
+                                             class="icon-image navigation__icon ">
+
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="js-navigation navigation navigation--tertiary profile-dropdown">
+                                <ul class="list list--reset">
+                                    <li class="list__item navigation--tertiary-item navigation--tertiary-item--icon">
+                                        <a href="https://ayudacliente.vodafone.es/empresas/contacta/" target="_blank"
+                                           class="d-flex">
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img3294774245888478304?057c5ab6d493b417628abb691565fcef"
+                                                 alt="Contact Us"
+                                                 class="icon-image icon-image--small navigation--tertiary__icon">
+                                            <span>{{home.contact_us}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="js-profile language">
+                                    <div class="language-header profile__header-mobile">
+                                        <a href="#"
+                                           class="js-language-current language__current"
+                                           onclick="VodafoneHeader.toggleProfileMenu()">
+                                            <span class="visually-hidden">menu</span>
+                                            <span class="js-language-chosen language__chosen">
+                                                {{USER_NAME}}
+                                            </span>
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img2147115385327445231?238988ae81dc5c6b927ef67ee575d63b"
+                                                 alt="Down"
+                                                 class="icon-image icon-image--small js-icon-down language__icon profile__icon--down open">
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img2147115385327445231?238988ae81dc5c6b927ef67ee575d63b"
+                                                 alt="Up"
+                                                 class="icon-image icon-image--small js-icon-up language__icon profile__icon--up">
+                                        </a>
+                                    </div>
+                                    <div class="js-profile-options js-options language__options profile__options profile__options-mobil">
+                                        <ul class="ad-component_list ad-component_list--manage-list manage-links">
+                                            <li class="ad-component_list-item ad-component_list-item--developer">
+                                                {{MYAPPS_LINK}}
+                                            </li>
+                                        </ul>
+                                        {{USER_LIST}}
+                                    </div>
+                                </div>
+                                <ul class="list list--reset company-manage-list company-manage-list-mobile">
+                                    {{COMPANY_DROPDOWN}}
+                                    {{MANAGE_DROPDOWN}}
+                                </ul>
+                                <div class="js-language language">
+                                    <div class="language-header">
+                                        <a href="#"
+                                           class="js-language-current language__current"
+                                           onclick="VodafoneHeader.toggleLanguageChooser()">
+                                            <span class="visually-hidden">menu</span>
+                                            <span class="js-language-chosen language__chosen">
+                                                {{CURRENT_LANGUAGE}}
+                                            </span>
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img2147115385327445231?238988ae81dc5c6b927ef67ee575d63b"
+                                                 alt="Down"
+                                                 class="icon-image icon-image--small js-icon-down language__icon language__icon--down open">
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img2147115385327445231?238988ae81dc5c6b927ef67ee575d63b"
+                                                 alt="Up"
+                                                 class="icon-image icon-image--small js-icon-up language__icon language__icon--up">
+                                        </a>
+                                        <a href="https://ayudacliente.vodafone.es/particulares/temas-de-ayuda/"
+                                           target="_blank"
+                                           class="help">
+                                            {{home.help}}
+                                            <img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img8578363870444422249?c10dfd51132869e01293bb534f7954c9"
+                                                 alt="Help"
+                                                 class="icon-image icon-image--small navigation__icon">
+                                        </a>
+                                    </div>
+                                    <div class="js-language-options js-options language__options language__options-mobile">
+                                        {{LANGUAGE_LINKS}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="navigation__backdrop"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

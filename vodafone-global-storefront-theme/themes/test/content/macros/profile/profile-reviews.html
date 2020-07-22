@@ -1,0 +1,129 @@
+{% from "/macros/rating.html" import ratingInput %}
+{% set TEXTAREA_MAXLENGTH = 2048 %}
+{% macro confirmationModal(id, header, message, i18n) %}
+    <div id="{{id}}" class="modal modal-dialog modal__default" role="menu">
+        <h3 class="modal--header">
+            {{ header }}
+            <a class="close modal-dismiss" rel="modal:close"></a>
+        </h3>
+        <div class="modal--content modal-content">
+            {{ message }}
+        </div>
+        <menu class="modal--footer toolbar toolbar__polar modal-footer">
+            <menu class="toolbar--item modal-footer-left">
+                <menu class="toolbar--item">
+                    <button type="button" class="button toolbar--item button__primary" aria-label="{{ i18n.labels.confirm }}" rel="modal:confirm">
+                        {{ i18n.labels.confirm }}
+                    </button>
+                    <button type="button"  class="button toolbar--item button__secret" aria-label="{{ i18n.labels.cancel }}" rel="modal:close">
+                        {{ i18n.labels.cancel }}
+                    </button>
+                </menu>
+            </menu>
+        </menu>
+    </div>
+{% endmacro %}
+{% macro reviewForm(i18n, reviewObject = { id: 0, title: "", comment: "", rating: -1 } ) %}
+    <form class="form form--compact js-profile-entry-form" role="form">
+        <div data-fieldsets="" class="form--fieldset">
+            <fieldset data-fields="">
+                <div class="form--field" data-field-type="rating" data-field-required="true" role="menuitem">
+                    <label>
+                        {{ i18n.labels.myRating }}
+                        <span class="label--error js-error-message" data-message-required="{{ i18n.messages.error.mustBeBetween }}"></span>
+                    </label>
+                    <div class="js-rating-input">
+                        {{ ratingInput(reviewObject.rating, reviewObject.id) }}
+                        <div class="rating-details js-rating-details is-hidden">
+                            <span class="js-rating-number"></span>
+                            <span class="js-rating-label-multi-stars is-hidden">{{ i18n.labels.multiStars }}</span>
+                            <span class="js-rating-label-single-star is-hidden">{{ i18n.labels.singleStar }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form--field" data-field-type="input" data-field-required="true" role="menuitem">
+                    <label for="review-title">
+                        {{ i18n.labels.title }}
+                        <span class="label--error js-error-message" data-message-required="{{ i18n.messages.error.fieldRequired }}"></span>
+                    </label>
+                    <input id="review-title" name="title" type="text" value="{{reviewObject.title}}" aria-label="{{ i18n.title }}">
+                </div>
+                <div class="form--field" data-field-type="textarea" data-field-required="true" role="menuitem">
+                    <label>
+                        {{ i18n.labels.description }}
+                        <span class="label--error js-error-message" data-message-required="{{ i18n.messages.error.fieldRequired }}" data-message-maxlength="{{ i18n.messages.error.textareaMaxLength }}"></span>
+                    </label>
+                    <div class="js-maxlength js-maxlength-textarea">
+                        <textarea name="comment" data-maxlength="{{ TEXTAREA_MAXLENGTH }}">{{ reviewObject.comment }}</textarea>
+                        <div class="js-maxlength-count">{{ TEXTAREA_MAXLENGTH }}</div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="layout-section"></div>
+        <button type="submit" class="button__primary is-hidden">false</button>
+    </form>
+{% endmacro %}
+{% macro writeReviewModal(i18n) %}
+    <div id="post-entry-form-modal" class="modal modal-dialog modal__default" role="menu">
+        <h3 class="modal--header">
+            {{ i18n.labels.writeReview }}
+            <a class="close modal-dismiss" rel="modal:close"></a>
+        </h3>
+        <div class="modal--content modal-content">
+            {{ reviewForm(i18n) }}
+        </div>
+        <menu class="modal--footer toolbar toolbar__polar modal-footer">
+            <menu class="modal-footer-left">
+                <button type="button" class="button button__primary toolbar--item" aria-label="{{ i18n.labels.submit }}" rel="modal:submit">
+                    <span>{{ i18n.labels.submit }}</span>
+                </button>
+                <button type="button" class="button button__secret toolbar--item" aria-label="{{ i18n.labels.cancel }}" rel="modal:close">
+                    <span>{{ i18n.labels.cancel }}</span>
+                </button>
+            </menu>
+        </menu>
+    </div>
+{% endmacro %}
+{% macro editReview(i18n, reviewObject) %}
+    <div class="js-profile-edit-entry is-hidden">
+        {{ reviewForm(i18n, reviewObject) }}
+        <menu class="toolbar--item">
+            <button type="button" data-auto="submit" class="button toolbar--item button__primary" aria-label="{{ i18n.labels.submit }}" rel="edit:submit">
+                {{ i18n.labels.submit }}
+            </button>
+            <button type="button" data-auto="reject" class="button toolbar--item button__secret" aria-label="{{ i18n.labels.cancel }}" rel="edit:cancel">
+                {{ i18n.labels.cancel }}
+            </button>
+        </menu>
+    </div>
+{% endmacro %}
+{% macro commentForm(i18n) %}
+    <div class="js-profile-post-comment is-hidden">
+        <form class="form form--compact js-profile-entry-comment-form" role="form">
+            <div class="form--fieldset">
+                <fieldset data-fields="">
+                    <div class="form--field" data-field-type="textarea" data-field-required="true">
+                        <label>
+                            {{ i18n.labels.commentOnReview }}
+                            <span class="label--error js-error-message" data-message-required="{{ i18n.messages.error.fieldRequired }}" data-message-maxlength="{{ i18n.messages.error.textareaMaxLength }}"></span>
+                        </label>
+                        <div class="js-maxlength js-maxlength-textarea">
+                        <textarea name="comment" data-maxlength="{{ TEXTAREA_MAXLENGTH }}">{{description}}</textarea>
+                        <div class="js-maxlength-count">{{ TEXTAREA_MAXLENGTH }}</div>
+                    </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="layout-section"></div>
+            <menu class="toolbar--item">
+                <button type="button" data-auto="submit" class="button toolbar--item button__primary" aria-label="{{ i18n.labels.submitComment }}" rel="comment:submit">
+                    {{ i18n.labels.submitComment }}
+                </button>
+                <button type="button" data-auto="reject" class="button toolbar--item button__secret" aria-label="{{ i18n.labels.cancel }}" rel="comment:cancel">
+                    {{ i18n.labels.cancel }}
+                </button>
+            </menu>
+        </form>
+    </div>
+{% endmacro %}

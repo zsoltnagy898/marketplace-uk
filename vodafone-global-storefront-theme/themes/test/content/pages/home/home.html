@@ -1,0 +1,58 @@
+{% extends "/layout/base.html" %}
+{% from "/macros/sliders/slider.html" import slider %}
+{% from "/macros/sliders/bundle.html" import bundleSlider %}
+{% from "/macros/sliders/hero.html" import hero %}
+{% from "/macros/navigator.html" import navigator %}
+{% from "/macros/home-faq.html" import homeFaq %}
+{% from "/macros/sliders/script.html" import sliderScript %}
+
+{% block data %}
+<data type="navigator" />
+<data type="faq" />
+<data name="core" type="list" attributes="4320" />
+<data name="mobile" type="list" attributes="4334" />
+<data name="bundles" type="list" types="BUNDLE" />
+<data name="hero" type="list" products="185242,97079,48145,199553,17331,10030" />
+{% endblock %}
+
+{% block content %}
+    <div class="row row--spaced">
+        <div id="sectionNavigation" class="col col-fix-4 d-none d-sm-block">
+            {{ navigator(nav.primary) }}
+        </div>
+        <div class="col col-xs-8 col-fix-inv-sm-4 ">
+            <div class="layout-content__section home-content">
+                {{ hero(productLists.customLists.hero.products, i18n) }}
+            </div>
+            {% if productLists.featuredapps.items.length %}
+                <div class="layout-content__section home-content">
+                    {{ slider(productLists.featuredapps.name, productLists.featuredapps.items, i18n, productLists.featuredapps.url ) }}
+                </div>
+            {% endif %}
+            {% if productLists.customLists.core.products.length  %}
+                <div class="layout-content__section home-content">
+                    {{ slider(productLists.customLists.core.name, productLists.customLists.core.products, i18n, productLists.customLists.core.url) }}
+                </div>
+            {% endif %}
+            {% if productLists.customLists.mobile.products.length  %}
+                <div class="layout-content__section home-content">
+                    {{ slider(productLists.customLists.mobile.name, productLists.customLists.mobile.products, i18n, productLists.customLists.mobile.url) }}
+                </div>
+            {% endif %}
+            {% if productLists.customLists.bundles.products.length %}
+                <div class="layout-content__section home-content">
+                    {{ bundleSlider(productLists.customLists.bundles.name, productLists.customLists.bundles.products, i18n, productLists.customLists.bundles.url) }}
+                </div>
+            {% endif %}
+            {% if productLists.popularapps.items.length  %}
+                <div class="layout-content__section home-content">
+                    {{ slider(productLists.popularapps.name, productLists.popularapps.items, i18n, productLists.popularapps.url) }}
+                </div>
+            {% endif %}
+            <div class="layout-content__section home-content" id="faq-container">
+                {{ homeFaq(common.faq.items[0], common.faq.i18n, common.faq.pageUrl) }}
+            </div>
+        </div>
+    </div>
+{{ sliderScript() }}
+{% endblock %}

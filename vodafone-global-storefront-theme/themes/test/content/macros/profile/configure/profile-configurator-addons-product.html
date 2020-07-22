@@ -1,0 +1,83 @@
+{% from "/macros/profile/profile-details.html" import profileDetails %}
+{% from "/macros/profile/profile-cost.html" import profileAddonProductCost %}
+{% from "/macros/profile/profile-fee.html" import profileFee %}
+{% from "/macros/profile/configure/profile-added-button.html" import productAddButton %}
+
+
+{% macro configuratorAddonProductsContent(addonProducts, selectedEdition, i18n) %}
+    <h2 class="configurator-header">{{ i18n.selectAddons }}</h2>
+    <div class="row js-editions js-addons">
+        {% for addonProduct in addonProducts.items %}
+            {% for edition in addonProduct.edition %}
+                <div 
+                    data-parent-edition-id="{{ addonProduct.parentEditionId }}"
+                    data-edition-id="{{ edition.id }}"
+                    data-ppid="{{ edition.plans[0].uuid }}"
+                    class=" col-xs-8
+                            col-fix-sm-4
+                            profile-box
+                            js-edition-box
+                            js-addon-box
+                            {{ 'addon-configurator' if selectedEdition | length }}
+                            {{ 'addon-configurator--hidden' if selectedEdition | length and addonProduct.parentEditionId != selectedEdition.id }}"
+                >
+                    <div class="addon-products">
+                        <div class="addon-products__header js-edition-header">
+                            <h3>{{ addonProduct.name }}</h3>
+                        </div>
+                        <div class="addon-products__content">
+                            <div class="addon-products__prices js-edition-prices">
+                                <ul class="addon-products-checklist addon-products-checklist--flush">
+                                    {% for plan in edition.plans %}
+                                        {% if plan.costs and plan.costs.flatPrice %}
+                                            {{ profileAddonProductCost(plan.costs.flatPrice, true) }}
+                                        {% endif %}
+                                        {% if plan.costs and plan.costs.unitPrice %}
+                                            {% for unitPrice in plan.costs.unitPrice %}
+                                                {% set unitPriceIndex = loop.index %}
+                                                {% for usageRange in unitPrice.usageRange %}
+                                                        {{ profileAddonProductCost(usageRange, unitPriceIndex === 1 and not plan.costs.flatPrice) }}
+                                                {% endfor %}
+                                            {% endfor %}
+                                        {% endif %}
+                                        {% if plan.contractLength %}
+                                            <li class="addon-products-checklist__item badges">
+                                                <span class="badge badge__outline">{{ plan.formattedContract }}</span>
+                                            </li>
+                                        {% endif %}
+                                        {% if plan.setupFees.length or plan.contractFees.length %}
+                                            {{ profileFee(plan.setupFees, plan.contractFees) }}
+                                        {% endif %}
+                                        {% if loop.index < edition.plans.length %}
+                                            <li class="addon-products-checklist__item addon-products__prices-separator">
+                                                <span>{{ addonProducts.i18n.tierSeparator }}</span>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="addon-products__action">
+                                <div class="profile-edition__action profile-actions">
+                                    {% set editionOptions = { isFullWidth: true } %}
+                                    {{ productAddButton(edition.callToAction, addonProducts.i18n, edition.id, editionOptions) }}
+                                    <a class="btn-remove-addon js-remove-addon">{{ addonProducts.i18n.remove }}</a>
+                                </div>
+                            </div> 
+                            {% if edition.bullets.length %}
+                                <div class="addon-products__details profile-edition__bullets js-edition-bullets">
+                                    {{ profileDetails(edition.bullets) }}
+                                    {% if edition.bullets.length > 7 %}
+                                        <div class="js-edition-bullets-toggle">
+                                            <a class="toggle-show">{{ application.addonProducts.i18n.showMoreDetails }}</a>
+                                            <a class="toggle-hide">{{ application.addonProducts.i18n.hideMoreDetails }}</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endmacro %}

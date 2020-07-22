@@ -1,0 +1,24 @@
+{% macro productSidebarPricing(editions, i18n) %}
+    <div class="container_header">
+        <h5 class="container_header--title container_header--item">{{ i18n.pricing }}</h5>
+    </div>
+    <div class="container_content">
+        {% for edition in editions %}
+            <div class="stats">
+                <dl>
+                    <dt>{{ edition.name }}</dt>
+                    <dd class="price">
+                        {% if edition.label %}
+                            <h3 class="price--label">{{ edition.label | safe }}</h3>
+                        {% else %}
+                            <span class="price--value">
+                                <a href="">{{ edition.value }}</a>
+                            </span>
+                            <span class="price--unit">{{ edition.formattedFrequency }}</span>
+                        {% endif %}
+                    </dd>
+                </dl>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}
