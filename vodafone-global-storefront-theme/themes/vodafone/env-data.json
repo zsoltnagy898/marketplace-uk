@@ -1,5 +1,5 @@
 {
-  "https://testvfgreece.appdirect.com": [
+  "https://testvfuk.appdirect.com": [
     {
       "name": "recommendedSolutions",
       "type": "list",
@@ -8,7 +8,7 @@
     {
       "name": "carousel",
       "type": "list",
-      "categories": "42357"
+      "categories": "42352"
     },
     {
       "name": "popularapps",
@@ -21,7 +21,7 @@
       "categories": "42161"
     }
   ],
-  "https://marketplace.vodafone.gr": [
+  "https://marketplace.vodafone.co.uk": [
     {
       "name": "recommendedSolutions",
       "type": "list",
