@@ -2,7 +2,7 @@
 {% from "/macros/profile/profile-edition-cost.html" import profileEditionCost %}
 {% from "/macros/profile/show-more-edition-item.html" import showMoreEditionItem %}
 
-{% macro profileEditionListItemContent(edition, editions, id, loop, startIndex = 0) %}
+{% macro profileAddonListItemContent(edition, editions, id, loop, startIndex = 0) %}
 <div class="profile-edition{% if edition.primary %} profile-edition--primary{% endif %} profile-edition-content-container w-100 {{id}} p-3">
     <div class="profile-edition__content">
         <div class="profile-edition__prices js-edition-prices">
@@ -20,9 +20,6 @@
                 {% endfor %}
                 {% else %}
                 <div class="invisible">.</div>
-                {% endif %}
-                {% if plan.costs and plan.costs.flatPrice %}
-                {{ profileEditionCost(plan.costs.flatPrice) }}
                 {% endif %}
                 {% if loop.index < planCount %}
 
@@ -43,18 +40,13 @@
             {{showMoreEditionItem(editions)}}
         </div>
         {% if edition and edition.callToAction %}
-
-        {% if application.callToActions.items[0].actionType != "LEAD_GEN" %}
         <div class="profile-edition__action w-100">
-            <a {% if edition.callToAction.enabled and edition.callToAction.url %}href="{{ edition.callToAction.url }}"{% endif %}
+            <a href="{{edition.callToAction.url}}"
                role="button"
-               class="button button--primary button--full-width
-                    {{ 'js-profile-lead-form' if edition.callToAction.actionType == "LEAD_GEN" }}
-            ">
-            {{edition.callToAction.label}}
+               class="button button--primary button--full-width">
+                {{edition.callToAction.label}}
             </a>
         </div>
-        {% endif %}
         {% endif %}
     </div>
 </div>

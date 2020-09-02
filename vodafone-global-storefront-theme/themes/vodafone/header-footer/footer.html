@@ -50,6 +50,455 @@
   </footer>
 </div>
 
+
+<!--Scripts for Header behaviour -->
+{{JS_DROPDOWN_CLICK}}
+
+<script>
+    (function manageDropdown() {
+        $('.header-primary .ad-component_dropdown').hover(function() {
+            $(this).find('.ad-component_dropdown--trigger').toggleClass('ad-component_dropdown--is-active');
+        }, function(e) {
+            $('.header-primary .ad-component_dropdown--is-active').removeClass('ad-component_dropdown--is-active');
+        });
+    })();
+
+    //removed selected language from the dropdown
+    (function(){
+        $('.ad-component_list.ad-component_list--language-list.language-links .ad-component_list-item.selected').remove();
+    })();
+</script>
+
+
+<script>
+
+    /*if (window.location.href.indexOf("PURCHASE_ORDER") > -1) {
+        var orderId = document.getElementsByClassName("info-item");
+    }*/
+
+    //var test = document.querySelector(".js-app-detail-container > div > .adb-stat a").innerHTML;
+
+    //console.log(test);
+
+    var pathArray = window.location.pathname.split('/');
+
+    var visitorLoginComplete = false;
+
+    <!-- utag_data attributes population -->
+    /*window.utag_data = {
+    page_channel: "web",
+    page_country: "uk",
+    page_domain: window.location.host,
+    page_error: "",
+    page_locale: "en gb",
+    page_name: document.title,
+    page_section: "Vodafone Business Marketplace",
+    page_subdomain: "",
+    page_title: document.title,
+    page_type: "",
+    page_url: window.location.href,
+    page_platform: "Vodafone Business Marketplace",
+    event_name:"",
+    event_name: ["checkout_start"],
+    event_name: ["checkout_step1"],
+    event_name: ["checkout_step2"],
+    event_name: ["checkout_step3"],
+    event_name: ["checkout_complete"],
+    product_id: pathArray[2],
+    product_package_id: "",
+    product_sku: "",
+    event_name: ["cart_open"],
+    event_name: ["cart_add"],
+    event_name: ["cart_view"],
+    event_name: ["cart_remove"],
+    event_name: ["cart_save"],
+    product_name: pathArray[3],
+    product_target_segment: "",
+    product_brand: "",
+    journey_name: "Vodafone Business Marketplace purchase",
+    transaction_shipping_type: "",
+    transaction_payment_type: "",
+    product_stock_status:"",
+    product_category: "",
+    transaction_id: orderId && orderId.length && orderId[0] && orderId[0].innerText || "",
+    cart_id: "",
+    transaction_total: "",
+    product_quantity: "",
+    visitor_customer_type: "",
+    visitor_permission_name: "",
+    visitor_permission_status: "",
+    visitor_permissions: "",
+    form_error: "",
+    form_name: "",
+    form_type: "",
+    tool_error: "",
+    visitor_customer_segment: "",
+    visitor_customer_status: "",
+    visitor_id_asset_active: "",
+    visitor_id_asset_primary: "",
+    visitor_login_status: "",
+    visitor_login_type: "",
+    visitor_type: "",
+    event_name: "",
+    tool_results: "",
+    form_start: ["form_start"],
+    event_name:["form_end"],
+    form_name:"",
+    form_step_name: "",
+    form_step_number: "",
+    form_type: "",
+    form_error: "",
+    visitor_id_account_primary: "",
+    visitor_customer_account_type: "",
+    product_price_recurrence_amount_net: "",
+    product_price_recurrence_amount: "",
+    product_price_recurrence_number: "",
+    product_price: "",
+    product_price_net: "",
+    }*/
+
+    window.utag_data = {
+        page_channel: "web",
+        page_country: "uk",
+        page_domain: window.location.host,
+        page_locale: "en gb",
+        page_section: "Vodafone Business Marketplace",
+        page_subdomain: "",
+        page_platform: "Vodafone Business Marketplace",
+        page_url: window.location.href,
+    }
+
+    buildUtagDataObject();
+
+    <!-- End utag_data attributes population -->
+
+    <!-- Update utag_data object and send data when url changes -->
+
+
+    (function(){
+        var rs = history.pushState;
+        history.pushState = function(){
+            rs.apply(history, arguments);
+
+            pathArray = window.location.pathname.split('/');
+
+            window.utag_data.page_url = window.location.href;
+
+            buildUtagDataObject();
+
+            callView();
+        };
+    }());
+
+
+    /*window.addEventListener('popstate', function() {
+
+      pathArray = window.location.pathname.split('/');
+
+      window.utag_data.page_url = window.location.href;
+
+      buildUtagDataObject();
+
+      callView();
+    });*/
+
+    var visitorLoginComplete = false;
+
+    if(sessionStorage.getItem('visitorLoginCompleted') === null) {
+        sessionStorage.setItem('visitorLoginCompleted', 'false');
+    } else if(document.referrer.split('/')[3]) {
+        if( document.referrer.split('/')[3].split('?')[0] === 'logout') {
+            sessionStorage.setItem('visitorLoginCompleted', 'false');
+        }
+    }
+
+
+    function buildUtagDataObject() {
+
+        if(pathArray[1] === 'home') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>featured applications';
+            window.utag_data.page_title = 'featured applications';
+            window.utag_data.page_type = 'product list';
+            window.utag_data.journey_name = 'Vodafone Business Marketplace purchase';
+            if(typeof window.utag_data.event_name !== "undefined") {
+                delete window.utag_data.event_name;
+            }
+        } else if(pathArray[1] === 'listing') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>all applications';
+            window.utag_data.page_title = 'all applications';
+            window.utag_data.page_type = 'product list';
+            window.utag_data.journey_name = 'Vodafone Business Marketplace purchase';
+            if(typeof window.utag_data.event_name !== "undefined") {
+                delete window.utag_data.event_name;
+            }
+        } else if(pathArray[1] === 'apps') {
+
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>' + pathArray[3];
+            window.utag_data.page_title = pathArray[3];
+            window.utag_data.page_type = 'product detail';
+            window.utag_data.event_name = ["product_view"];
+            window.utag_data.journey_name = 'Vodafone Business Marketplace purchase';
+            //window.utag_data.product_category = 'software';
+            //window.utag_data.product_brand = '';
+            //window.utag_data.product_brand = window.I18N["csp.provider.name"];
+
+
+            //console.log(window.I18N["csp.provider.name"])
+
+
+        } else if(pathArray[1] === 'invitations') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>register';
+            window.utag_data.page_title = 'Vodafone Business Marketplace registration';
+            window.utag_data.page_type = 'register';
+            window.utag_data.event_name = ["visitor_register_start"];
+        } else if(pathArray[1] === 'internal.error') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>error';
+            window.utag_data.page_title = 'Vodafone Business Marketplace error';
+            window.utag_data.page_type = 'error page';
+        } else if(pathArray[1] === 'myapps') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>my applications';
+            window.utag_data.page_title = 'my applications';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'login') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>log in';
+            window.utag_data.page_title = 'Vodafone Business Marketplace log in';
+            window.utag_data.page_type = 'login';
+            window.utag_data.event_name = ["visitor_login_start"];
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'home') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>dashbaord';
+            window.utag_data.page_title = 'Vodafone Business Marketplace dashboard';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'apps') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>applications>manage apps';
+            window.utag_data.page_title = 'manage apps';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'domains') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>applications>domains';
+            window.utag_data.page_title = 'manage domains';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'quotes') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>applications>saved orders';
+            window.utag_data.page_title = 'saved orders';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'users') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>users>manage users';
+            window.utag_data.page_title = 'manage users';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'roles') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>users>manage roles';
+            window.utag_data.page_title = 'manage roles';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'assign') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>assign apps';
+            window.utag_data.page_title = 'assign apps';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'companySettings' && pathArray[3] === 'sso') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>company settings>single sign-on';
+            window.utag_data.page_title = 'single sign-on';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'companySettings') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>company settings>account';
+            window.utag_data.page_title = 'company settings';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'account' && pathArray[2] === 'groups') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>manage>users>manage groups';
+            window.utag_data.page_title = 'manage groups';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'purchase') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>checkout>step 1>create order';
+            window.utag_data.page_title = 'checkout: create order';
+            window.utag_data.page_type = 'checkout';
+            window.utag_data.event_name = ["checkout_start", "checkout_step1"];
+            window.utag_data.journey_name = 'Vodafone Business Marketplace purchase';
+
+            window.utag_data.product_category = ['software'];
+            window.utag_data.product_id = [];
+            window.utag_data.product_id.push('VBM-' + pathArray[2]);
+            window.utag_data.product_name = [];
+            window.utag_data.product_name.push(document.querySelector('.app-enabled').dataset.appName);
+
+            //window.utag_data.product_brand = window.I18N["csp.provider.name"];
+
+        } else if(pathArray[1] === 'payment') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>checkout>step 2>confirm your order';
+            window.utag_data.page_title = 'checkout: confirm your order';
+            window.utag_data.page_type = 'checkout';
+            window.utag_data.event_name = ["checkout_step2"];
+            window.utag_data.journey_name = 'Vodafone Business Marketplace purchase';
+
+            window.utag_data.product_category = ['software'];
+            window.utag_data.product_name = [];
+            window.utag_data.product_name.push(document.querySelector('.edition-name').innerHTML);
+            window.utag_data.product_id = [];
+            window.utag_data.product_id.push('VBM-' + document.querySelector('.agreeLinks > span > label a').href.split('/')[4].split('?')[0]);
+
+            window.utag_data.product_quantity = document.querySelectorAll('.invoice-table > table > tbody > tr > td')[3].innerHTML;
+            window.utag_data.product_price_recurrence_amount = document.querySelector('.invoice-value').innerHTML.substring(1)
+            window.utag_data.product_price = document.querySelectorAll('.invoice-table > table > tbody > tr > td')[2].innerHTML.replace(/\s/g, '').split('/')[0].substring(1);
+
+        } else if(pathArray[1] === 'orderreceipt') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>checkout>step 3>order complete';
+            window.utag_data.page_title = 'checkout: order complete';
+            window.utag_data.page_type = 'confirmation';
+            window.utag_data.event_name = ["checkout_step3", "checkout_complete"];
+            window.utag_data.journey_name = 'Vodafone Business Marketplace purchase';
+
+            window.utag_data.product_category = ['software'];
+            window.utag_data.product_id = [];
+            window.utag_data.product_id.push('VBM-' + document.getElementById('analyticsData').dataset.json.split(':')[2].split('}')[0]);
+            window.utag_data.product_name = [];
+            window.utag_data.product_name.push(document.querySelector('.edition-name').innerHTML);
+
+            window.utag_data.transaction_id = document.querySelector('.info-item').innerHTML;
+            window.utag_data.product_quantity = document.querySelectorAll('.invoice-table > table > tbody > tr > td')[3].innerHTML;
+            window.utag_data.product_price_recurrence_amount = document.querySelector('.invoice-value').innerHTML.substring(1);
+            window.utag_data.product_price = document.querySelectorAll('.invoice-table > table > tbody > tr > td')[2].innerHTML.replace(/\s/g, '').split('/')[0].substring(1);
+
+        } else if(pathArray[1] === 'profile') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>profile>my profile';
+            window.utag_data.page_title = 'my profile';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'companies') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>profile>my company>company profile';
+            window.utag_data.page_title = 'company profile';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'directories') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>profile>my company>company directory';
+            window.utag_data.page_title = 'company directory';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'settings') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>profile>my settings';
+            window.utag_data.page_title = 'my settings';
+            window.utag_data.page_type = 'my account';
+        } else if(pathArray[1] === 'help') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>faqs';
+            window.utag_data.page_title = 'frequently asked questions';
+            window.utag_data.page_type = 'content';
+        } else if(pathArray[1] === 'forgotPassword') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>forgot your password';
+            window.utag_data.page_title = 'forgot your password';
+            window.utag_data.page_type = 'my account';
+            window.utag_data.form_start = ["form_start"];
+            window.utag_data.form_name = 'Vodafone Business Marketplace - password reset';
+            window.utag_data.form_step_name = 'Vodafone Business Marketplace - forgot your password';
+            window.utag_data.form_step_number = '1';
+            window.utag_data.form_type = 'password reset';
+        } else if(pathArray[1] === 'resetPassword') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>reset your password';
+            window.utag_data.page_title = 'reset your password';
+            window.utag_data.page_type = 'my account';
+            window.utag_data.form_name = 'Vodafone Business Marketplace - password reset';
+            window.utag_data.form_step_name = 'Vodafone Business Marketplace - reset your password';
+            window.utag_data.form_step_number = '2';
+            window.utag_data.form_type = 'password reset';
+        } else if(pathArray[1] === 'invitations' || pathArray[1] === 'accountSetup') {
+            window.utag_data.page_name = 'uk>business>Vodafone Business Marketplace>register';
+            window.utag_data.page_title = 'Vodafone Business Marketplace registration';
+            window.utag_data.page_type = 'register';
+        }
+
+
+        if(pathArray[1] !== 'forgotPassword') {
+
+            if(document.referrer.split('/')[4]) {
+
+                if(document.referrer.split('/')[4].split('?')[0] === 'login' && sessionStorage.getItem('visitorLoginCompleted') == 'false') {
+                    if(typeof window.utag_data.event_name !== 'undefined' && window.utag_data.event_name.length > 0) {
+                        window.utag_data.event_name.push('visitor_login_complete');
+                        //visitorLoginComplete = true;
+                        sessionStorage.setItem('visitorLoginCompleted', 'true');
+                    } else {
+                        window.utag_data.event_name = ["visitor_login_complete"];
+                        //visitorLoginComplete = true;
+                        sessionStorage.setItem('visitorLoginCompleted', 'true');
+                    }
+                }
+            } else if(document.referrer.split('/')[3]) {
+                if(document.referrer.split('/')[3].split('?')[0] === 'login' && sessionStorage.getItem('visitorLoginCompleted') == 'false' && document.location.pathname.split('/')[1] !== 'twofactor') {
+                    if(typeof window.utag_data.event_name !== 'undefined' && window.utag_data.event_name.length > 0) {
+                        window.utag_data.event_name.push('visitor_login_complete');
+                        //visitorLoginComplete = true;
+                        sessionStorage.setItem('visitorLoginCompleted', 'true');
+                    } else {
+                        window.utag_data.event_name = ["visitor_login_complete"];
+                        //visitorLoginComplete = true;
+                        sessionStorage.setItem('visitorLoginCompleted', 'true');
+                    }
+                }
+            }
+        }
+
+
+        if(window.bootstrapData.bootstrap.UserInfo === null) {
+            window.utag_data.visitor_login_status = 'logged out';
+            window.utag_data.visitor_login_authorisation_role = 'logged out';
+        } else {
+            window.utag_data.visitor_login_status = 'logged in';
+
+            var roles = window.bootstrapData.bootstrap.UserInfo.roles;
+            if(roles.indexOf('CHANNEL_ADMIN') > -1 || roles.indexOf('SYS_ADMIN') > -1 || roles.indexOf('BILLING_ADMIN') > -1) {
+                window.utag_data.visitor_login_authorisation_role = 'Vodafone Business Marketplace - admin';
+            } else {
+                window.utag_data.visitor_login_authorisation_role = 'Vodafone Business Marketplace - user';
+            }
+
+        }
+
+        //For logging in from apps page
+        if(pathArray[1] === 'apps' && window.bootstrapData.bootstrap.UserInfo === null) {
+            localStorage.setItem('loginOnAppsPage', 'true');
+        }
+
+        if(localStorage.getItem('loginOnAppsPage') !== null && window.bootstrapData.bootstrap.UserInfo !== null) {
+            window.utag_data.event_name.push("visitor_login_complete");
+            localStorage.removeItem('loginOnAppsPage');
+        }
+
+        if(pathArray[1] === 'login' && localStorage.getItem('loginOnAppsPage') !== null) {
+            localStorage.removeItem('loginOnAppsPage');
+        }
+    }
+
+    <!-- End update utag_data object and send data when url changes -->
+
+
+
+</script>
+
+
+<!-- Tealium async script -->
+<script>
+    utag_cfg_ovrd = window.utag_cfg_ovrd || {};
+    utag_cfg_ovrd.noview = true;
+
+    //window.utag_cfg_ovrd = {noview : true};
+
+    (function ( a, b, c, d ) {
+        a = '//tags.tiqcdn.com/utag/vodafone/uk-reinvent/prod/utag.js';
+        b = document;
+        c = 'script';
+        d = b.createElement( c );
+        d.src = a;
+        d.type = 'text/java' + c;
+        d.async = true;
+        d.onload = callView;
+        a = b.getElementsByTagName( c )[0];
+        a.parentNode.insertBefore( d, a );
+    })();
+
+
+    function callView() {
+        // JS Code: Tealium page view tracking
+        try {
+            utag.view(utag_data, function() { console.log('data sent') });
+        } catch(e) { window.wa_catcherror = e; console.error(e); }
+
+    }
+
+</script>
+<!-- End Tealium library integration -->
+
+
 <script>
   /*! modernizr 3.4.0 (Custom Build) | MIT *
    * https://modernizr.com/download/?-appearance-bloburls-cssanimations-csstransforms-csstransitions-filereader-history-opacity-touchevents-video-setclasses !*/

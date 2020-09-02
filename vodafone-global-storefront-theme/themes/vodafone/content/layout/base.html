@@ -59,14 +59,33 @@
     <link rel="stylesheet" href="{{ r('/assets/css/theme/theme-index.css') }}">
 
     <link rel="stylesheet" href="{{ r('/assets/css/custom/cyber-configurator.css') }}">
-</head>
 
-<body>
+    <!-- Tealium no view flag -->
+    <script>
+        utag_cfg_ovrd = window.utag_cfg_ovrd || {};
+        utag_cfg_ovrd.noview = true;
+    </script>
+    <!-- Tealium sync script -->
+    <script src="//tags.tiqcdn.com/utag/vodafone/uk-reinvent/prod/utag.sync.js"></script>
+    </head>
 
-{% include "/includes/ws2/group/sprite.svg" %}
-{% include "/includes/icons.svg" %}
+    <body>
 
-<!--        {% block cookie %}-->
+    <!-- nanorep floating widget -->
+    <script>!function(t,e,o,c,n,a){var s=window.nanorep=window.nanorep||{};s=s[e]=s[e]||{},s.apiHost=a,s.host=n,s.path=c,s.account=t,s.protocol="https:"===location.protocol?"https:":"http:",s.on=s.on||function(){s._calls=s._calls||[],s._calls.push([].slice.call(arguments))};var p=s.protocol+"//"+n+c+o+"?account="+t,l=document.createElement("script");l.async=l.defer=!0,l.setAttribute("src",p),document.getElementsByTagName("head")[0].appendChild(l)}("vodafoneuk","floatingWidget","floating-widget.js","/web/","vodafoneuk.nanorep.co");</script>
+    <script>
+        nanorep.floatingWidget.on({
+            init: function() {
+                this.setConfigId('1374334162');
+            }
+        });
+    </script>
+    <!-- //nanorep floating widget -->
+
+    {% include "/includes/ws2/group/sprite.svg" %}
+    {% include "/includes/icons.svg" %}
+
+    <!--        {% block cookie %}-->
 <!--            {% include "/includes/cookie-consent.html" %}-->
 <!--        {% endblock %}-->
 
@@ -92,7 +111,6 @@
 <div id="footer-universal" role="contentinfo"></div>
 {% endblock %}
 
-{{ helpMenu() }}
 
 {% block scripts_ws2 %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.14/iframeResizer.min.js"
