@@ -1086,3 +1086,20 @@
     };
   })(window, document);
 </script>
+
+<script>
+  $("#submitLeadGen").on("click", function(e) {
+      e.preventDefault();
+
+      if ($("#leadGenForm").valid()) {
+          //$('#leadGenForm').submit();
+          $('#leadGenNotification').removeClass('hide');
+          $('#leadGenFormData').addClass('hide');
+          $('.modal-footer').addClass('hide');
+          $('#leadGenNotificationError').addClass('hide');
+      } else {
+          $('#leadGenNotificationError').removeClass('hide');
+          $('#leadGenNotification').addClass('hide');
+      }
+  })
+</script>
