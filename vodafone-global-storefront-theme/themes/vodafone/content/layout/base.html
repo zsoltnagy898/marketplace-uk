@@ -70,7 +70,7 @@
     <script src="//tags.tiqcdn.com/utag/vodafone/uk-reinvent/prod/utag.sync.js"></script>
     </head>
 
-    <body>
+<body {% if application.callToActions.items[0].actionType == 'LEAD_GEN' %}class="lead-gen-product"{% endif %}>
 
     <!-- nanorep floating widget -->
     <script>!function(t,e,o,c,n,a){var s=window.nanorep=window.nanorep||{};s=s[e]=s[e]||{},s.apiHost=a,s.host=n,s.path=c,s.account=t,s.protocol="https:"===location.protocol?"https:":"http:",s.on=s.on||function(){s._calls=s._calls||[],s._calls.push([].slice.call(arguments))};var p=s.protocol+"//"+n+c+o+"?account="+t,l=document.createElement("script");l.async=l.defer=!0,l.setAttribute("src",p),document.getElementsByTagName("head")[0].appendChild(l)}("vodafoneuk","floatingWidget","floating-widget.js","/web/","vodafoneuk.nanorep.co");</script>
