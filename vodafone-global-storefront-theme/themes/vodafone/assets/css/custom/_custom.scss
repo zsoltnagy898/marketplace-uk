@@ -9010,3 +9010,9 @@ p {
   box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.43);
   padding: 0 15px 15px;
 }
+
+.ad-universalnav .footer__curtain {
+  @include media-breakpoint-down(md) {
+    padding: 20px !important;
+  }
+}
