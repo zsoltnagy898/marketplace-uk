@@ -34,9 +34,6 @@
     <meta property="twitter:creator" content="">
     {% endblock %}
 
-    {# Tealium sync #}
-    <script src="//tags.tiqcdn.com/utag/vodafone/uk-main/prod/utag.sync.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
@@ -67,7 +64,7 @@
         utag_cfg_ovrd.noview = true;
     </script>
     <!-- Tealium sync script -->
-    <script src="//tags.tiqcdn.com/utag/vodafone/uk-reinvent/prod/utag.sync.js"></script>
+<!--    <script src="//tags.tiqcdn.com/utag/vodafone/uk-main/prod/utag.sync.js"></script>-->
     </head>
 
 <body {% if application.callToActions.items[0].actionType == 'LEAD_GEN' %}class="lead-gen-product"{% endif %}>
@@ -86,9 +83,6 @@
     {% include "/includes/ws2/group/sprite.svg" %}
     {% include "/includes/icons.svg" %}
 
-    <!--        {% block cookie %}-->
-<!--            {% include "/includes/cookie-consent.html" %}-->
-<!--        {% endblock %}-->
 
 {% block header %}
 <div id="header-universal" role="heading" aria-level="1"></div>

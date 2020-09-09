@@ -9,3 +9,25 @@
 @import 'notifications';
 @import 'search-bar';
 @import 'tooltips';
+
+//////// UK SPECIFIC //////////
+
+.js-brand {
+  a {
+    color: #e60000 !important;
+  }
+}
+
+a.brand-text {
+  color: #e60000 !important;
+  margin: 20px 10px 0 10px;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.ad-universalnav .profile__options .ad-component_list-item {
+  &:first-of-type {
+    display: none;
+  }
+}
