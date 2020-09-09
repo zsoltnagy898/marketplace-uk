@@ -9037,3 +9037,9 @@ a.brand-text {
     text-decoration: none;
   }
 }
+
+.ad-universalnav .profile__options .ad-component_list-item {
+  &:first-of-type {
+    display: none;
+  }
+}
