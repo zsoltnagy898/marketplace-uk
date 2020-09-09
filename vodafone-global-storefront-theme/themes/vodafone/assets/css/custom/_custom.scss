@@ -8992,17 +8992,17 @@ p {
   margin: 0 10px;
 }
 
-.header-small-text {
-  font-size: 14px;
-  color: #F4F4F4;
+h1.header-small-text {
+  font-size: 14px !important;
+  color: #cccccc !important;
   float: left;
-  margin-top: 3px;
+  margin-top: 6px !important;
 }
 
 .edition-title-main {
   overflow-wrap: anywhere;
   word-wrap: anywhere;
-}
+} 
 
 .profile-addons__action {
   border-radius: 0 0 6px 6px;
@@ -9020,4 +9020,20 @@ p {
 #onetrust-consent-sdk,
 #onetrust-banner-sdk {
   display: none;
+}
+
+//////// UK SPECIFIC //////////
+
+.js-brand {
+  a {
+    color: #e60000 !important;
+  }
+} 
+
+a.brand-text {
+  color: #e60000 !important;
+  margin-top: 20px;
+  &:hover {
+    text-decoration: none;
+  }
 }
