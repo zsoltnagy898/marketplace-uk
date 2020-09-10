@@ -23,7 +23,7 @@
   }
 
   &.high-height, &.high-height-image {
-    height: 450px;
+    min-height: 450px;
   }
 
   &.low-height {

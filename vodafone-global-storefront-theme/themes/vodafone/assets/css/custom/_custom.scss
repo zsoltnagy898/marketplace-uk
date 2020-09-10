@@ -8992,22 +8992,37 @@ p {
   margin: 0 10px;
 }
 
-h1.header-small-text {
-  font-size: 14px !important;
-  color: #cccccc !important;
-  float: left;
-  margin-top: 6px !important;
+.dropdown-menu.show {
+  top: 45px !important;
 }
 
-.edition-title-main {
-  overflow-wrap: anywhere;
-  word-wrap: anywhere;
-} 
+.dropdown-menu.show {
+  height: auto;
+  min-height: 200px;
+  max-height: 500px;
+  overflow-y: scroll;
+  transform: none !important;
+}
 
-.profile-addons__action {
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.43);
-  padding: 16px 15px;
+.ad-universalnav .footer__links {
+  font-family: VodafoneRegular !important;
+}
+
+#logocol {
+  width: 60%;
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    margin-left: 10px;
+  }
+}
+
+#socialcol {
+  width: 39%;
+  @include media-breakpoint-down(md) {
+    width: 100%;
+    margin-top: 25px;
+    margin-left: 5px;
+  }
 }
 
 .ad-universalnav .footer__curtain {
@@ -9016,10 +9031,122 @@ h1.header-small-text {
   }
 }
 
+.carousel .carousel-control-next {
+  right: -26px;
+}
+
+.carousel .carousel-control-prev {
+  left: -26px;
+}
+
+.heading {
+  font-family: "VodafoneRegular", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+}
+
+.modal-dialog {
+  padding: 15px;
+}
+
+.profile-edition__action {
+  a.button {
+    color: white;
+  }
+}
+
+#Policies {
+  padding: 150px 0;
+}
+
+.disabled {
+  background: #ccc;
+  box-shadow: none;
+  border: none;
+  cursor: not-allowed;
+}
+
+.ad-universalnav .footer__links,
+.ad-universalnav .company-manage-list .ad-component--link.ad-component_dropdown--trigger, .ad-universalnav .company-manage-list>.ad-component_list-item--account>.account-link {
+  font-family: "VodafoneRegular", Arial, sans-serif !important;
+}
+
+.heading--4 {
+  font-size: 24px;
+  @include media-breakpoint-down(md) {
+    font-size: 16px;
+  }
+}
+
+.adb-styled .adb-link__nav.adb-is-selected {
+  position: relative;
+  color: #fff;
+  box-shadow: 0 0 0 1px #006080;
+  border-top-color: #e60000;
+  background-color: #e60000;
+}
+
 #onetrust-pc-sdk,
-#onetrust-consent-sdk,
-#onetrust-banner-sdk {
+#onetrust-consent-sdk {
   display: none;
+}
+
+.edition-title-main {
+  overflow-wrap: anywhere;
+  word-wrap: anywhere;
+}
+
+.lead-gen-product {
+  .profile-edition-item {
+    .profile-edition__action {
+      display: none;
+    }
+  }
+}
+
+.ad-universalnav .company-manage-list .ad-component--link.ad-component_dropdown--trigger, .ad-universalnav .company-manage-list>.ad-component_list-item--account>.account-link,
+.ad-universalnav .company-manage-list .ad-component--link.ad-component_dropdown--trigger, .ad-universalnav .company-manage-list>.ad-component_list-item--account>.account-link {
+  font-family: "VodafoneRegular", Arial, sans-serif !important;
+}
+
+.ad-universalnav .footer__copyright {
+  font-family: "VodafoneLight", Arial, sans-serif;
+  line-height: 1.6em;
+}
+
+@media (max-width: 575.98px) {
+  .carousel.high-height-image {
+    height: auto !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .side-toggle__button {
+    height: 32px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .side-toggle__button {
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    top: auto;
+    height: auto !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.ad-universalnav .footer__copyright {
+  font-family: "VodafoneLight", Arial, sans-serif;
+  line-height: 1.6em;
+}
+
+.profile-addons__action {
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.43);
+  padding: 16px 15px;
 }
 
 //////// UK SPECIFIC //////////
