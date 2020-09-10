@@ -9165,8 +9165,6 @@ a.brand-text {
   }
 }
 
-.ad-universalnav .profile__options .ad-component_list-item {
-  &:first-of-type {
+.ad-component_list-item .ad-component_list-item--developer {
     display: none;
   }
-}
