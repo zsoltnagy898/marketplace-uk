@@ -67,14 +67,26 @@
         {{ whyVodafone() }}
     </section>
     <section class="section section--light-grey">
-        <div class="d-block d-lg-none">
-            {{ carousel('featuredPartnersMobile', featuredPartners, featuredPartners.items, 'logo', true, false, false,
-            'mobile', 1, true, true)
-            }}
-        </div>
-        <div class="d-none d-lg-block">
-            {{ carousel('featuredPartnersDesktop', featuredPartners, featuredPartners.items, 'logo', true, false, false,
-            'desktop', 1, true, true) }}
+        <div class="container">
+            <div class="featured-partners">
+                <div class="row">
+                    <div class="col-md-2 offset-md-1 text-center">
+                        <img src="{{ r("/assets/images/google-logo.png") }}" alt="Google">
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <img src="{{ r("/assets/images/trendmicro-logo.png") }}" alt="Google">
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <img src="{{ r("/assets/images/microsoft-logo.png") }}" alt="Google">
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <img src="{{ r("/assets/images/lookout-logo.png") }}" alt="Google">
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <img src="{{ r("/assets/images/wix-logo.png") }}" alt="Google">
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </div>
