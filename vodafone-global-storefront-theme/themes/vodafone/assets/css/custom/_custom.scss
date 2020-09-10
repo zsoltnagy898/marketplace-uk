@@ -9168,3 +9168,7 @@ a.brand-text {
 .ad-component_list-item .ad-component_list-item--developer {
     display: none;
   }
+
+.ad-universalnav .company-manage-list .ad-component--link.ad-component_dropdown--trigger, .ad-universalnav .company-manage-list > .ad-component_list-item--account > .account-link, .ad-universalnav .company-manage-list .ad-component--link.ad-component_dropdown--trigger, .ad-universalnav .company-manage-list > .ad-component_list-item--account > .account-link {
+  font-family: "VodafoneLight", Arial, sans-serif !important;
+}

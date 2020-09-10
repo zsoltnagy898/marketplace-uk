@@ -320,3 +320,7 @@ h1.header-small-text {
 .ad-universalnav .navigation__item {
   font-family: VodafoneRegular, Arial, sans-serif;
 }
+
+.ad-universalnav .company-manage-list .ad-component--link.ad-component_dropdown--trigger, .ad-universalnav .company-manage-list > .ad-component_list-item--account > .account-link, .ad-universalnav .company-manage-list .ad-component--link.ad-component_dropdown--trigger, .ad-universalnav .company-manage-list > .ad-component_list-item--account > .account-link {
+  font-family: "VodafoneLight", Arial, sans-serif !important;
+}
