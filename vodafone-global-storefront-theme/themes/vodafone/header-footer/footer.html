@@ -1055,6 +1055,7 @@
     $(document).ready(function() {
       handleScroll();
       window.addEventListener("scroll", handleScroll);
+      navFix()
     });
 
     $(window).on("load", function() {
@@ -1098,4 +1099,24 @@
           $('#leadGenNotification').addClass('hide');
       }
   })
+
+  function marketButton (channel) {
+      const originalInnerHTML = channel.innerHTML
+      channel.classList.remove('ad-component--link')
+      channel.classList.add("js-profile-current", "js-navigation-link", "navigation__link", "navigation__link--icon")
+      channel.innerHTML = `<img src="https://d33na3ni6eqf5j.cloudfront.net/channel_custom_style_resources/img4119267018191795232?ac6dea6…" alt="marketplace" class="icon-image icon-image--small">
+      <span class="navigation__icon-text navigation-search-text d-none d-lg-block" style="font-family: VodafoneLight; margin-top: 4px;">${originalInnerHTML}</span>`
+    }
+
+    function navFix () {
+      const marketplace = document.querySelector('a[href="/channel/products"]');
+      marketplace && marketplace.classList.add('ad-component_dropdown--trigger');
+      const developer = document.querySelector('.ad-component_list-item.ad-component_list-item--developer #developer');
+      developer && marketButton(developer);
+      const developerContainer = document.querySelector('.ad-component_list-item.ad-component_list-item--developer')
+      developerContainer && developerContainer.style.setProperty('display', 'block', 'important');
+      const channel = document.querySelector('ul.navigation__list > li.ad-component_list-item--channel a');
+      channel && marketButton(channel);
+    }
+
 </script>
